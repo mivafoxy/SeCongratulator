@@ -8,84 +8,56 @@ using System.Threading.Tasks;
 
 namespace SeCongratulator.Models
 {
-    class Congratulation : INotifyPropertyChanged
+    class Congratulation : ModelBase
     {
         private int id = -1;
-        private int kind;
+        private string kind;
         private string content=String.Empty;
-        private int holiday;
-        private int interest;
+        private string holiday;
+        private string interest;
         private int sex;
         private string age = String.Empty;
 
         public int Id
         {
             get => id;
-            set
-            {
-                id = value;
-                OnPropertyChanged("Id");
-            }
+            set => SetField(ref id, value);
         }
 
-        public int Kind
+        public string Kind
         {
             get => kind;
-            set
-            {
-                kind = value;
-                OnPropertyChanged("Kind");
-            }
+            set => SetField(ref kind, value);
         }
 
         public string Content
         {
             get => content;
-            set
-            {
-                content = value;
-                OnPropertyChanged("Content");
-            }
+            set => SetField(ref content, value);
         }
 
-        public int Holiday
+        public string Holiday
         {
             get => holiday;
-            set
-            {
-                holiday = value;
-                OnPropertyChanged("Holiday");
-            }
+            set => SetField(ref holiday, value);
         }
 
-        public int Interest
+        public string Interest
         {
             get => interest;
-            set
-            {
-                interest = value;
-                OnPropertyChanged("Interest");
-            }
+            set => SetField(ref interest, value);
         }
 
         public int Sex
         {
             get => sex;
-            set
-            {
-                sex = value;
-                OnPropertyChanged("Sex");
-            }
+            set => SetField(ref sex, value);
         }
 
         public string Age
         {
             get => age;
-            set
-            {
-                age = value;
-                OnPropertyChanged("Age");
-            }
+            set => SetField(ref age, value);
         }
 
         public override string ToString()
@@ -93,12 +65,6 @@ namespace SeCongratulator.Models
             return "Id: " + Id + "\nKind: " + Kind + "\nContent: " + Content + 
                 "\nHoliday: " + Holiday + "\nInterest: " + Interest +
                 "\nSex: " + Sex + "\nAge: " + Age;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
