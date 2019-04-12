@@ -25,13 +25,13 @@ namespace SeCongratulator
         public MainWindow()
         {
             InitializeComponent();
-            //ApplicationContext db = new ApplicationContext();
-            //try
-            //{
-            //    db.Congratulations.Load();
-            //    MessageBox.Show(db.Congratulations.First().ToString());
-            //}
-            //catch (Exception e) { MessageBox.Show(e.Message); }
+            ApplicationContext db = new ApplicationContext();
+            try
+            {
+                db.Congratulations.Load();
+                MessageBox.Show(db.Congratulations.First().ToString());
+            }
+            catch (Exception e) { MessageBox.Show(e.Message); }
         }
     }
 }
