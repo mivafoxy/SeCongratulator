@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SeCongratulator.Models;
 
 namespace SeCongratulator
 {
@@ -23,6 +25,15 @@ namespace SeCongratulator
         public MainWindow()
         {
             InitializeComponent();
+            /*ApplicationContext db = new ApplicationContext();
+            try
+            {
+                db.Congratulations.Load();
+                db.Kinds.Load();
+                db.Holidays.Load();
+                db.Interests.Load();
+            }
+            catch (Exception e) { MessageBox.Show(e.Message); }*/
         }
     }
 }
