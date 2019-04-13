@@ -1,0 +1,101 @@
+﻿<Window x:Class="SeCongratulator.Views.ProfileWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ViewModel="clr-namespace:SeCongratulator.ViewModels"
+        xmlns:local="clr-namespace:SeCongratulator"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="340" Width="372">
+    <Window.DataContext>
+        <ViewModel:ProfileWindowVM/>
+    </Window.DataContext>
+    <Grid>
+        <Label Name="MainLabel" 
+            Content="Заполните анкету" 
+            Margin="10,22,0,0"
+            FontSize="40"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"/>
+        <Label Name="NameLabel"        
+            Content="Имя" 
+            HorizontalAlignment="Left"
+            Margin="10,111,0,0" 
+            VerticalAlignment="Top"/>
+        <TextBox Name="NameInput"     
+            HorizontalAlignment="Left" 
+            Height="25" 
+            Margin="102,111,0,0" 
+            TextWrapping="NoWrap" 
+            Text="{Binding User.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+            VerticalAlignment="Top" 
+            Width="250"/>
+        <Label Name="AgeLabel"        
+            Content="Возраст" 
+            HorizontalAlignment="Left"
+            Margin="10,143,0,0" 
+            VerticalAlignment="Top"/>
+        <ComboBox Name="AGeInput"
+            HorizontalAlignment="Left" 
+            Margin="102,143,0,0" 
+            VerticalAlignment="Top" 
+            Width="250"
+            ItemsSource="{Binding User.Age}"
+            SelectedValue="{Binding SelectedAge, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Name="SexLabel"        
+            Content="Пол" 
+            HorizontalAlignment="Left"
+            Margin="10,175,0,0" 
+            VerticalAlignment="Top"/>
+        <RadioButton Name="MaleChoose"
+            Content="Мужской" 
+            HorizontalAlignment="Left" 
+            Margin="103,181,0,0" 
+            VerticalAlignment="Top"
+            IsChecked="{Binding IsMale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <RadioButton Name="FemaleChoose"
+            Content="Женский" 
+            HorizontalAlignment="Left" 
+            Margin="187,181,0,0" 
+            VerticalAlignment="Top"
+            IsChecked="{Binding IsFemale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Name="InterestLabel"        
+            Content="Увлечения" 
+            HorizontalAlignment="Left"
+            Margin="10,204,0,0" 
+            VerticalAlignment="Top"/>
+        <ComboBox Name="InterestInput"
+            HorizontalAlignment="Left" 
+            Margin="102,204,0,0" 
+            VerticalAlignment="Top" 
+            Width="250"
+            ItemsSource="{Binding User.Interest}"
+            SelectedValue="{Binding SelectedInterest, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Name="HolidayLabel"        
+            Content="Праздник" 
+            HorizontalAlignment="Left"
+            Margin="10,235,0,0" 
+            VerticalAlignment="Top"/>
+        <ComboBox Name="HolidaytInput"
+            HorizontalAlignment="Left" 
+            Margin="102,235,0,0" 
+            VerticalAlignment="Top" 
+            Width="250"
+            ItemsSource="{Binding User.Holiday}"
+            SelectedItem="{Binding SelectedHoliday, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Name="NextButton"
+            Content="Cоздать поздравление" 
+            HorizontalAlignment="Left" 
+            Margin="212,274,0,0" 
+            VerticalAlignment="Top" 
+            Width="140" Height="25"
+            Command="{Binding SearchCongratulation}"/>
+        <Button x:Name="ClearButton"
+            Content="Очистить анкету" 
+            HorizontalAlignment="Left" 
+            Margin="10,274,0,0" 
+            VerticalAlignment="Top" 
+            Width="96" Height="25"
+            Command="{Binding ClearProfile}"/>
+    </Grid>
+</Window>
