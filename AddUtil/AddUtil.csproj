@@ -80,6 +80,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SQLite, Version=1.0.110.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\SeCongratulator\packages\System.Data.SQLite.Core.1.0.110.0\lib\net46\System.Data.SQLite.dll</HintPath>
@@ -116,13 +117,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Db\CongratulationDbContext.cs" />
+    <Compile Include="Db\CongratulationDbMap.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\CongratulationsDbModel.cs" />
+    <Compile Include="Db\CongratulationsDbModel.cs" />
     <Compile Include="Models\CongratulationsModel.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

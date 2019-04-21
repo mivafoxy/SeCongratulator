@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AddUtil.Models
+namespace AddUtil.Db
 {
     /// <summary>
     /// Инкапсуляция модели для работы с БД.

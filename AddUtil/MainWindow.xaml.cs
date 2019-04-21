@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AddUtil.Db;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,14 @@ namespace AddUtil
         public MainWindow()
         {
             InitializeComponent();
+            using (var dbContext = new CongratulationDbContext())
+            {
+                List< CongratulationsDbModel> initCongrats = dbContext.CongratulationsDbModel.ToList();
+
+                var congratul = initCongrats[0];
+
+                Console.WriteLine($"Id: {congratul.Id}");
+            }
         }
     }
 }
