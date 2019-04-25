@@ -20,6 +20,31 @@ namespace AddUtil.Db
 
         }
 
+        public void AddNewRecord(CongratulationsDbModel dbCongratulation)
+        {
+            CongratulationsDbModel.Add(dbCongratulation);
+            this.SaveChanges();
+        }
+        
+        public void DeleteAllSimilarRecords(CongratulationsDbModel dbCongratulation)
+        {
+            IEnumerable<CongratulationsDbModel> similarCongrats =
+                CongratulationsDbModel.Select(
+                    congrat => congrat).
+                Where(
+                    congrat => congrat.Equals(dbCongratulation));
+
+            CongratulationsDbModel.RemoveRange(similarCongrats);
+            this.SaveChanges();
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Configurations.Add(new CongratulationDbMap());
+            base.OnModelCreating(modelBuilder);
+        }
+
         private static DbConnection GetDbConnection()
         {
             ConnectionStringSettings connection = ConfigurationManager.ConnectionStrings["DefaultConnection"];
@@ -31,11 +56,5 @@ namespace AddUtil.Db
             return dbConnection;
         }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            modelBuilder.Configurations.Add(new CongratulationDbMap());
-            base.OnModelCreating(modelBuilder);
-        }
     }
 }

@@ -17,6 +17,25 @@ namespace AddUtil.Db
         public string Holiday { get; set; }
         public string Interest { get; set; }
         public int Sex { get; set; }
-        public string Age { get; set; } 
+        public string Age { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is CongratulationsDbModel))
+                return false;
+
+            var anotherCongrat = (CongratulationsDbModel)obj;
+
+            bool isEqual =
+                this.Kind.SequenceEqual(anotherCongrat.Kind) &&
+                this.Content.SequenceEqual(anotherCongrat.Content) &&
+                this.Holiday.SequenceEqual(anotherCongrat.Holiday) &&
+                this.Interest.SequenceEqual(anotherCongrat.Interest) &&
+                this.Sex == anotherCongrat.Sex &&
+                this.Age.SequenceEqual(anotherCongrat.Age);
+
+
+            return isEqual;
+        }
     }
 }

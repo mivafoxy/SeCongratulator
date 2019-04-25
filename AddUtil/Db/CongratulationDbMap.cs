@@ -18,7 +18,7 @@ namespace AddUtil.Db
                 p => p.Id).
                     IsRequired().
                     HasDatabaseGeneratedOption(
-                        DatabaseGeneratedOption.None);
+                        DatabaseGeneratedOption.Identity);
         }
     }
 }
