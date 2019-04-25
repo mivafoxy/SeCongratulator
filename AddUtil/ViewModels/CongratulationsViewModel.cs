@@ -1,4 +1,5 @@
-﻿using AddUtil.Db;
+﻿using AddUtil.Commands;
+using AddUtil.Db;
 using AddUtil.Models;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,9 @@ namespace AddUtil.ViewModels
 {
     public class CongratulationsViewModel : ViewModelBase
     {
+        //
+        // Fields and properties.
+        //
         public ObservableCollection<CongratulationsModel> Congratulations;
 
         private CongratulationsModel selectedCongratulation;
@@ -19,6 +23,26 @@ namespace AddUtil.ViewModels
             get => selectedCongratulation;
             set => SetField(ref selectedCongratulation, value);
         }
+
+        //
+        // Commands.
+        //
+
+        private RelayCommand addRecordCommand;
+        public RelayCommand AddRecordCommand
+        {
+            get => addRecordCommand ?? (addRecordCommand = new RelayCommand(obj => this.AddNewCongratulation()));
+        }
+
+        private RelayCommand removeRecordCommand;
+        public RelayCommand RemoveRecordCommand
+        {
+            get => removeRecordCommand ?? (removeRecordCommand = new RelayCommand(obj => this.DeleteCongratulation()));
+        }
+
+        //
+        // Constructors.
+        //
 
         public CongratulationsViewModel()
         {
