@@ -1,4 +1,5 @@
 ﻿using AddUtil.Db;
+using AddUtil.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,14 +25,16 @@ namespace AddUtil
         public MainWindow()
         {
             InitializeComponent();
-            using (var dbContext = new CongratulationDbContext())
-            {
-                List< CongratulationsDbModel> initCongrats = dbContext.CongratulationsDbModel.ToList();
+            //using (var dbContext = new CongratulationDbContext())
+            //{
+            //    List< CongratulationsDbModel> initCongrats = dbContext.CongratulationsDbModel.ToList();
 
-                var congratul = initCongrats[0];
+            //    var congratul = initCongrats[0];
 
-                Console.WriteLine($"Id: {congratul.Id}");
-            }
+            //    Console.WriteLine($"Id: {congratul.Id}");
+            //}
+
+            DataContext = new CongratulationsViewModel();
         }
     }
 }
