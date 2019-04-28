@@ -22,6 +22,8 @@ namespace AddUtil
     /// </summary>
     public partial class MainWindow : Window
     {
+        CongratulationsViewModel congratulationsViewModel;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -33,8 +35,8 @@ namespace AddUtil
 
             //    Console.WriteLine($"Id: {congratul.Id}");
             //}
-
-            DataContext = new CongratulationsViewModel();
+            congratulationsViewModel = new CongratulationsViewModel();
+            this.DataContext = congratulationsViewModel;
         }
     }
 }

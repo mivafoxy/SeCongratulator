@@ -23,6 +23,7 @@ namespace AddUtil.Models
 
             field = value;
             OnPropertyChanged(propertyName);
+
             return true;
         }
     }

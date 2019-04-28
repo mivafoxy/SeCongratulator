@@ -16,7 +16,11 @@ namespace AddUtil.ViewModels
         //
         // Fields and properties.
         //
-        public ObservableCollection<CongratulationsModel> Congratulations;
+        public ObservableCollection<CongratulationsModel> Congratulations
+        {
+            get;
+            set;
+        }
 
         private CongratulationsModel selectedCongratulation;
         public CongratulationsModel SelectedCongratulation
@@ -47,9 +51,9 @@ namespace AddUtil.ViewModels
 
         public CongratulationsViewModel()
         {
-            Congratulations = CongratulationsDbService.GetCongratulationsModelsFromDb();
-
-            MessageBox.Show(Congratulations[0].Id.ToString());
+            Congratulations = new ObservableCollection<CongratulationsModel>();
+            foreach (var congrat in CongratulationsDbService.GetCongratulationsModelsFromDb())
+                Congratulations.Add(congrat);
         }
 
         //
