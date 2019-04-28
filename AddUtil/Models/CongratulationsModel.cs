@@ -15,6 +15,13 @@ namespace AddUtil.Models
         // Поля для определения модели поздравляшки.
         //
 
+        private int id;
+        public int Id
+        {
+            get => id;
+            set => this.SetField(ref id, value);
+        }
+
         private string kind;
         public string Kind
         {
@@ -50,27 +57,11 @@ namespace AddUtil.Models
             set => this.SetField(ref sex, value);
         }
 
-        private int age;
-        public int Age
+        private string age;
+        public string Age
         {
             get => age;
             set => SetField(ref age, value);
-        }
-
-        public CongratulationsModel(
-            string kind, 
-            string content, 
-            string holiday, 
-            string interest, 
-            int sex,
-            int age)
-        {
-            this.kind = kind;
-            this.content = content;
-            this.holiday = holiday;
-            this.interest = interest;
-            this.sex = sex;
-            this.age = age;
         }
     }
 }

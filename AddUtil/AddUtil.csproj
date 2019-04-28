@@ -129,7 +129,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Db\CongratulationsDbModel.cs" />
     <Compile Include="Models\CongratulationsModel.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

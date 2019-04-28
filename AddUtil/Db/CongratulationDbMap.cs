@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AddUtil.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AddUtil.Db
 {
-    public class CongratulationDbMap : EntityTypeConfiguration<CongratulationsDbModel>
+    public class CongratulationDbMap : EntityTypeConfiguration<CongratulationsModel>
     {
         public CongratulationDbMap()
         {

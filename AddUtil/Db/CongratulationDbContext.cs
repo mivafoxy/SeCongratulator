@@ -1,40 +1,31 @@
 ﻿using AddUtil.Models;
-using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AddUtil.Db
 {
     public class CongratulationDbContext : DbContext
     {
-        public DbSet<CongratulationsDbModel> CongratulationsDbModel { get; set; }
+        public DbSet<CongratulationsModel> CongratulationsDbModel { get; set; }
 
         public CongratulationDbContext() : base(GetDbConnection(), false)
         {
 
         }
 
-        public void AddNewRecord(CongratulationsDbModel dbCongratulation)
+        public void AddNewRecord(CongratulationsModel dbCongratulation)
         {
             CongratulationsDbModel.Add(dbCongratulation);
             this.SaveChanges();
         }
         
-        public void DeleteAllSimilarRecords(CongratulationsDbModel dbCongratulation)
+        public void DeleteAllSimilarRecords(CongratulationsModel dbCongratulation)
         {
-            IEnumerable<CongratulationsDbModel> similarCongrats =
-                CongratulationsDbModel.Select(
-                    congrat => congrat).
-                Where(
-                    congrat => congrat.Equals(dbCongratulation));
-
-            CongratulationsDbModel.RemoveRange(similarCongrats);
+            CongratulationsDbModel.Remove(dbCongratulation);
             this.SaveChanges();
         }
 
@@ -55,6 +46,5 @@ namespace AddUtil.Db
 
             return dbConnection;
         }
-
     }
 }

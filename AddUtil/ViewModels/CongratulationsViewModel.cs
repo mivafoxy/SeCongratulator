@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace AddUtil.ViewModels
 {
@@ -47,7 +48,13 @@ namespace AddUtil.ViewModels
         public CongratulationsViewModel()
         {
             Congratulations = CongratulationsDbService.GetCongratulationsModelsFromDb();
+
+            MessageBox.Show(Congratulations[0].Id.ToString());
         }
+
+        //
+        // Private zone.
+        //
 
         private void DeleteCongratulation()
         {
