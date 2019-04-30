@@ -45,6 +45,13 @@ namespace AddUtil.ViewModels
             get => removeRecordCommand ?? (removeRecordCommand = new RelayCommand(obj => this.DeleteCongratulation()));
         }
 
+        private RelayCommand runMergeCommand;
+        public RelayCommand RunMergeCommand
+        {
+            get => runMergeCommand;
+            set =? runMergeCommand ?? (runMergeCommand = new RelayCommand(obj => this.CallToMergeWithOldDb()));
+        }
+
         //
         // Constructors.
         //
@@ -71,6 +78,10 @@ namespace AddUtil.ViewModels
             Congratulations.Add(SelectedCongratulation);
             this.CallToCommitAdd(SelectedCongratulation);
         }
+
+        // Перенос из одной базы в другую - старая база должна подаваться аргументом, на выходе новая база, заполненная значениями со старой.
+        private void CallToMergeWithOldDb() => DbMergeService.RunMerge(null); // Как сделать переход на новое окно? Как вообще сделать новое окно? 
+
 
         private void CallToCommitAdd(CongratulationsModel congratulation) => CongratulationsDbService.CommitAdd(congratulation);
         private void CallToCommitDelete(CongratulationsModel congratulation) => CongratulationsDbService.CommitDelete(congratulation);

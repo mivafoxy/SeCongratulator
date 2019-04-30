@@ -111,6 +111,8 @@
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Db\CongratulationsDbService.cs" />
+    <Compile Include="Db\DbMergeService.cs" />
+    <Compile Include="DisplayRootRegistry.cs" />
     <Compile Include="ViewModels\CongratulationsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Page Include="MainWindow.xaml">
@@ -157,7 +159,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\" />
+  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
