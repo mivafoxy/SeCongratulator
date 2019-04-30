@@ -48,8 +48,7 @@ namespace AddUtil.ViewModels
         private RelayCommand runMergeCommand;
         public RelayCommand RunMergeCommand
         {
-            get => runMergeCommand;
-            set =? runMergeCommand ?? (runMergeCommand = new RelayCommand(obj => this.CallToMergeWithOldDb()));
+            get => runMergeCommand ?? (runMergeCommand = new RelayCommand(obj => this.CallToMergeWithOldDb()));
         }
 
         //
