@@ -16,6 +16,7 @@ namespace AddUtil
             var viewModelType = typeof(VM);
 
             this.EnsureViewModelType(viewModelType);
+            this.EnsureViewModelTypeIsNotRegistered(viewModelType);
 
             vmToWindowMapping[viewModelType] = typeof(Win);
         }
@@ -25,6 +26,7 @@ namespace AddUtil
             var viewModelType = typeof(VM);
 
             this.EnsureViewModelType(viewModelType);
+            this.EnsureViewModelTypeRegistered(viewModelType);
 
             vmToWindowMapping.Remove(viewModelType);
         }
@@ -81,8 +83,18 @@ namespace AddUtil
             if (viewModelType.IsInterface)
                 throw new ArgumentException("Cannot register interfaces.");
 
+                    }
+
+        private void EnsureViewModelTypeRegistered(Type viewModelType)
+        {
             if (!vmToWindowMapping.ContainsKey(viewModelType))
                 throw new InvalidOperationException($"Type {viewModelType.FullName} is not registered.");
+        }
+
+        private void EnsureViewModelTypeIsNotRegistered(Type viewModelType)
+        {
+            if (vmToWindowMapping.ContainsKey(viewModelType))
+                throw new InvalidOperationException($"Type {viewModelType.FullName} has already been registered.");
         }
 
         private void EnsureViewModelObject(object viewModel)

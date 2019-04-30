@@ -1,19 +1,5 @@
-﻿using AddUtil.Db;
-using AddUtil.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AddUtil.ViewModels;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AddUtil.Views
 {
@@ -27,16 +13,6 @@ namespace AddUtil.Views
         public MainWindow()
         {
             InitializeComponent();
-            //using (var dbContext = new CongratulationDbContext())
-            //{
-            //    List< CongratulationsDbModel> initCongrats = dbContext.CongratulationsDbModel.ToList();
-
-            //    var congratul = initCongrats[0];
-
-            //    Console.WriteLine($"Id: {congratul.Id}");
-            //}
-            congratulationsViewModel = new CongratulationsViewModel();
-            this.DataContext = congratulationsViewModel;
         }
     }
 }
