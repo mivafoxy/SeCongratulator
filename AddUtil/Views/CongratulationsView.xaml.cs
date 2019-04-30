@@ -6,11 +6,9 @@ namespace AddUtil.Views
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CongratulationsView : Window
     {
-        CongratulationsViewModel congratulationsViewModel;
-
-        public MainWindow()
+        public CongratulationsView()
         {
             InitializeComponent();
         }

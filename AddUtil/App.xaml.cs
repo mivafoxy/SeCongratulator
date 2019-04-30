@@ -20,7 +20,8 @@ namespace AddUtil
 
         public App()
         {
-            displayRootRegistry.RegisterWindowType<CongratulationsViewModel, MainWindow>();
+            displayRootRegistry.RegisterWindowType<CongratulationsViewModel, CongratulationsView>();
+            displayRootRegistry.RegisterWindowType<MergeViewModel, MergeView>();
 
         }
 

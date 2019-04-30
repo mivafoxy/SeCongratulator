@@ -114,11 +114,12 @@
     <Compile Include="Db\DbMergeService.cs" />
     <Compile Include="DisplayRootRegistry.cs" />
     <Compile Include="ViewModels\CongratulationsViewModel.cs" />
+    <Compile Include="ViewModels\MergeViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\MergeView.xaml.cs">
       <DependentUpon>MergeView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\MainWindow.xaml">
+    <Page Include="Views\CongratulationsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -128,8 +129,8 @@
     </Compile>
     <Compile Include="Db\CongratulationDbContext.cs" />
     <Compile Include="Db\CongratulationDbMap.cs" />
-    <Compile Include="Views\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Views\CongratulationsView.xaml.cs">
+      <DependentUpon>CongratulationsView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\MergeView.xaml">
