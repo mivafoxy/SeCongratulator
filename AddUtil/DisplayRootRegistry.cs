@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
+// https://github.com/bakulev/MVVM_OpenNewWindowMinimalExample/tree/master/MVVM_OpenNewWindowMinimalExample
 namespace AddUtil
 {
     public class DisplayRootRegistry
