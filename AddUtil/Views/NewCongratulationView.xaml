@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AddUtil.Views"
         mc:Ignorable="d"
         Title="NewCongratulationView" Height="600" Width="800">
     <Grid>
@@ -32,13 +31,13 @@
 
         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Margin="10">
             <Label HorizontalAlignment="Center" VerticalAlignment="Center" >Вид 1:</Label>
-            <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
+            <RadioButton HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
 
             <Label HorizontalAlignment="Center" VerticalAlignment="Center" >Вид 2:</Label>
-            <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
+            <RadioButton HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
 
             <Label HorizontalAlignment="Center" VerticalAlignment="Center" >Вид 3:</Label>
-            <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
+            <RadioButton HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
         </StackPanel>
         
         <TextBox Grid.Row="1" Grid.Column="1" Width="600" Height="250"  HorizontalAlignment="Center" Margin="10"/>

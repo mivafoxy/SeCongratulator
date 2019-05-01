@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace AddUtil.ViewModels
 {
@@ -20,7 +21,8 @@ namespace AddUtil.ViewModels
 
         private void Abort()
         {
-
+            var displayRoot = (Application.Current as App).DisplayRootRegistry;
+            displayRoot.HidePresentation(this);
         }
     }
 }
