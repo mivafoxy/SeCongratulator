@@ -10,20 +10,20 @@ namespace AddUtil.Db
 {
     public class CongratulationDbContext : DbContext
     {
-        public DbSet<CongratulationsModel> CongratulationsDbModel { get; set; }
+        public DbSet<CongratulationModel> CongratulationsDbModel { get; set; }
 
         public CongratulationDbContext() : base(GetDbConnection(), false)
         {
 
         }
 
-        public void AddNewRecord(CongratulationsModel dbCongratulation)
+        public void AddNewRecord(CongratulationModel dbCongratulation)
         {
             CongratulationsDbModel.Add(dbCongratulation);
             this.SaveChanges();
         }
         
-        public void DeleteRecordFromDb(CongratulationsModel dbCongratulation)
+        public void DeleteRecordFromDb(CongratulationModel dbCongratulation)
         {
             CongratulationsDbModel.Remove(dbCongratulation);
             this.SaveChanges();

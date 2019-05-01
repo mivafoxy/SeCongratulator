@@ -110,7 +110,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="Db\CongratulationsDbService.cs" />
     <Compile Include="Db\DbMergeService.cs" />
     <Compile Include="DisplayRootRegistry.cs" />
     <Compile Include="ViewModels\CongratulationsViewModel.cs" />

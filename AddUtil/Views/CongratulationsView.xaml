@@ -30,9 +30,16 @@
             <Button x:Name="GoToAppendCongratButon" 
                     Content="Добавить поздравление" 
                     Margin="10"
-                    Command="{Binding Path=AddRecordCommand}"/>
-            <Button Content="Удалить выбранное поздравление" Margin="10"/>
-            <Button Content="Загрузить данные с прошлой версии" Margin="10"/>
+                    Command="{Binding Path=GoToCongratulationAppendingCommand}"/>
+            <Button x:Name="GoToEditButton" 
+                    Content="Редактировать" 
+                    Margin="10"
+                    Command="{Binding Path=GoToCongratulationEditCommand}"/>
+            <Button Content="Удалить" Margin="10"/>
+            <Button x:Name="GoToMergeButton" 
+                    Content="Загрузить данные с прошлой версии" 
+                    Margin="10"
+                    Command="{Binding Path=GoToMergeCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

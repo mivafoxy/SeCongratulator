@@ -76,6 +76,7 @@ namespace AddUtil
         {
             var window = this.CreateWindowInstanceWithViewModel(viewModel);
             window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            openWindows[viewModel] = window;
             await window.Dispatcher.InvokeAsync(() => window.ShowDialog());
         }
 

@@ -56,8 +56,8 @@
         <TextBox Grid.Row="5" Grid.Column="1" Margin="10" Width="50" HorizontalAlignment="Left"/>
 
         <StackPanel x:Name="ButtonsZone" Grid.Row="6" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
-            <Button Content="Отмена" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10"/>
-            <Button Content="Добавить" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10"/>
+            <Button Content="Отмена" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10" Width="50" Command="{Binding Path=AbortCommand}"/>
+            <Button Content="Ок" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10" Width="50" Command="{Binding Path=AppendCommand}"/>
         </StackPanel>
 
     </Grid>

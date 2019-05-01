@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AddUtil.Db
 {
-    public class CongratulationDbMap : EntityTypeConfiguration<CongratulationsModel>
+    public class CongratulationDbMap : EntityTypeConfiguration<CongratulationModel>
     {
         public CongratulationDbMap()
         {

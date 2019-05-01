@@ -9,7 +9,7 @@ namespace AddUtil.Models
     /// <summary>
     /// Инкапсуляция бизнес логики поздравления.
     /// </summary>
-    public class CongratulationsModel : ModelBase
+    public class CongratulationModel : ModelBase
     {
         //
         // Поля для определения модели поздравляшки.
