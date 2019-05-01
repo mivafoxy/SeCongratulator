@@ -16,6 +16,9 @@ namespace AddUtil.ViewModels
         //
         // Fields and properties.
         //
+
+        private CongratulationDbContext dbContext = new CongratulationDbContext();
+
         public ObservableCollection<CongratulationsModel> Congratulations
         {
             get;
@@ -36,7 +39,7 @@ namespace AddUtil.ViewModels
         private RelayCommand addRecordCommand;
         public RelayCommand AddRecordCommand
         {
-            get => addRecordCommand ?? (addRecordCommand = new RelayCommand(obj => this.AddNewCongratulation()));
+            get => addRecordCommand ?? (addRecordCommand = new RelayCommand(obj => this.GoToCongratulationAppending()));
         }
 
         private RelayCommand removeRecordCommand;
@@ -57,32 +60,35 @@ namespace AddUtil.ViewModels
 
         public CongratulationsViewModel()
         {
-            Congratulations = new ObservableCollection<CongratulationsModel>();
-            foreach (var congrat in CongratulationsDbService.GetCongratulationsModelsFromDb())
-                Congratulations.Add(congrat);
+            this.initCongratulationsCollection();
         }
 
         //
         // Private zone.
         //
 
-        private void DeleteCongratulation()
+        private void initCongratulationsCollection()
         {
-            Congratulations.Remove(SelectedCongratulation);
-            this.CallToCommitDelete(SelectedCongratulation);
+            List<CongratulationsModel> dbCongrats = dbContext.CongratulationsDbModel.ToList();
+            Congratulations = new ObservableCollection<CongratulationsModel>();
+
+            foreach (var congratulation in dbCongrats)
+                Congratulations.Add(congratulation);
         }
 
-        private void AddNewCongratulation()
+        private void DeleteCongratulation()
         {
-            Congratulations.Add(SelectedCongratulation);
-            this.CallToCommitAdd(SelectedCongratulation);
+        }
+
+        private async void GoToCongratulationAppending()
+        {
+            var displayRootRegistry = (Application.Current as App).DisplayRootRegistry;
+
+            var newCongratulationViewModel = new NewCongratulationViewModel();
+            await displayRootRegistry.ShowModalPresentation(newCongratulationViewModel);
         }
 
         // Перенос из одной базы в другую - старая база должна подаваться аргументом, на выходе новая база, заполненная значениями со старой.
         private void CallToMergeWithOldDb() => DbMergeService.RunMerge(null); // Как сделать переход на новое окно? Как вообще сделать новое окно? 
-
-
-        private void CallToCommitAdd(CongratulationsModel congratulation) => CongratulationsDbService.CommitAdd(congratulation);
-        private void CallToCommitDelete(CongratulationsModel congratulation) => CongratulationsDbService.CommitDelete(congratulation);
     }
 }

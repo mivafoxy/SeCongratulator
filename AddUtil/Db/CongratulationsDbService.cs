@@ -30,7 +30,7 @@ namespace AddUtil.Db
         public static void CommitDelete(CongratulationsModel congratulation)
         {
             using (var dbContext = new CongratulationDbContext())
-                dbContext.DeleteAllSimilarRecords(congratulation);
+                dbContext.DeleteRecordFromDb(congratulation);
         }
     }
 }

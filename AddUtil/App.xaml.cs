@@ -15,14 +15,14 @@ namespace AddUtil
     /// </summary>
     public partial class App : Application
     {
-        public DisplayRootRegistry displayRootRegistry = new DisplayRootRegistry();
+        public DisplayRootRegistry DisplayRootRegistry = new DisplayRootRegistry();
         CongratulationsViewModel congratulationsViewModel;
 
         public App()
         {
-            displayRootRegistry.RegisterWindowType<CongratulationsViewModel, CongratulationsView>();
-            displayRootRegistry.RegisterWindowType<MergeViewModel, MergeView>();
-
+            DisplayRootRegistry.RegisterWindowType<CongratulationsViewModel, CongratulationsView>();
+            DisplayRootRegistry.RegisterWindowType<MergeViewModel, MergeView>();
+            DisplayRootRegistry.RegisterWindowType<NewCongratulationViewModel, NewCongratulationView>();
         }
 
         protected override async void OnStartup(StartupEventArgs e)
@@ -31,7 +31,7 @@ namespace AddUtil
 
             congratulationsViewModel = new CongratulationsViewModel();
 
-            await displayRootRegistry.ShowModalPresentation(congratulationsViewModel);
+            await DisplayRootRegistry.ShowModalPresentation(congratulationsViewModel);
 
             Shutdown();
         }

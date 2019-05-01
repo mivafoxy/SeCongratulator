@@ -27,7 +27,10 @@
         </DataGrid>
 
         <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center">
-            <Button Content="Добавить поздравление" Margin="10"/>
+            <Button x:Name="GoToAppendCongratButon" 
+                    Content="Добавить поздравление" 
+                    Margin="10"
+                    Command="{Binding Path=AddRecordCommand}"/>
             <Button Content="Удалить выбранное поздравление" Margin="10"/>
             <Button Content="Загрузить данные с прошлой версии" Margin="10"/>
         </StackPanel>

@@ -23,7 +23,7 @@ namespace AddUtil.Db
             this.SaveChanges();
         }
         
-        public void DeleteAllSimilarRecords(CongratulationsModel dbCongratulation)
+        public void DeleteRecordFromDb(CongratulationsModel dbCongratulation)
         {
             CongratulationsDbModel.Remove(dbCongratulation);
             this.SaveChanges();

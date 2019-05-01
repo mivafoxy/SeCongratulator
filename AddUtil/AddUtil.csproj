@@ -115,9 +115,13 @@
     <Compile Include="DisplayRootRegistry.cs" />
     <Compile Include="ViewModels\CongratulationsViewModel.cs" />
     <Compile Include="ViewModels\MergeViewModel.cs" />
+    <Compile Include="ViewModels\NewCongratulationViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\MergeView.xaml.cs">
       <DependentUpon>MergeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NewCongratulationView.xaml.cs">
+      <DependentUpon>NewCongratulationView.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\CongratulationsView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -134,6 +138,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\MergeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NewCongratulationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
