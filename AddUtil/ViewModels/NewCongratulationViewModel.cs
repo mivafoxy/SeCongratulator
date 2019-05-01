@@ -39,6 +39,24 @@ namespace AddUtil.ViewModels
             get => appendCommand ?? (appendCommand = new RelayCommand(obj => this.SaveCongratulation()));
         }
 
+        public RelayCommand chooseFirstContentTypeCommand;
+        public RelayCommand ChooseFirstContentTypeCommand
+        {
+            get => chooseFirstContentTypeCommand ?? (chooseFirstContentTypeCommand = new RelayCommand(obj => ChooseContentTypeInModel(null)));
+        }
+
+        private RelayCommand chooseSecondContentTypeCommand;
+        public RelayCommand ChooseSecondContentTypeCommand
+        {
+            get => chooseSecondContentTypeCommand ?? (chooseSecondContentTypeCommand = new RelayCommand(obj => ChooseContentTypeInModel(null)));
+        }
+
+        private RelayCommand chooseThirdContentTypeCommand;
+        public RelayCommand ChooseThirdContentTypeCommand
+        {
+            get => chooseThirdContentTypeCommand ?? (chooseThirdContentTypeCommand = new RelayCommand(obj => ChooseContentTypeInModel(null)));
+        }
+
         private RelayCommand abortCommand;
         public RelayCommand AbortCommand
         {
@@ -48,12 +66,20 @@ namespace AddUtil.ViewModels
         public NewCongratulationViewModel()
         {
             isEditMode = false;
+            this.CongratulationModel = new CongratulationModel();
         }
 
         public NewCongratulationViewModel(CongratulationModel congratulationModel)
         {
             isEditMode = true;
-            this.CongratulationModel = congratulationModel;
+            this.CongratulationModel = new CongratulationModel();
+
+            this.CongratulationModel.Kind = congratulationModel.Kind;
+            this.CongratulationModel.Content = congratulationModel.Content;
+            this.CongratulationModel.Holiday = congratulationModel.Holiday;
+            this.CongratulationModel.Interest = congratulationModel.Interest;
+            this.CongratulationModel.Sex = congratulationModel.Sex;
+            this.CongratulationModel.Age = congratulationModel.Age;
         }
 
         //
@@ -90,6 +116,11 @@ namespace AddUtil.ViewModels
         {
             var displayRoot = (Application.Current as App).DisplayRootRegistry;
             displayRoot.HidePresentation(this);
+        }
+
+        private void ChooseContentTypeInModel(object contentType)
+        {
+            this.CongratulationModel.Kind = contentType.ToString(); // DEBUG - сделать нормальный класс для вида контента
         }
     }
 }
