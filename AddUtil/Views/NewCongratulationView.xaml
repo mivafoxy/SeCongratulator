@@ -39,10 +39,10 @@
             <Label HorizontalAlignment="Center" VerticalAlignment="Center" >Вид 3:</Label>
             <RadioButton HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
         </StackPanel>
-        
-        <TextBox Grid.Row="1" Grid.Column="1" Width="600" Height="250"  HorizontalAlignment="Center" Margin="10"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Margin="10"/>
-        <TextBox Grid.Row="3" Grid.Column="1" Margin="10"/>
+
+        <TextBox Grid.Row="1" Grid.Column="1" Width="600" Height="250"  HorizontalAlignment="Center" Margin="10" Text="{Binding Path=CongratulationModel.Content, Mode=TwoWay}"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="10" Text="{Binding Path=CongratulationModel.Holiday, Mode=TwoWay}"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="10" Text="{Binding Path=CongratulationModel.Interest, Mode=TwoWay}"/>
         
         <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Margin="10">
             <Label HorizontalAlignment="Center" VerticalAlignment="Center" >Мужской:</Label>
@@ -51,8 +51,15 @@
             <Label HorizontalAlignment="Center" VerticalAlignment="Center" >Женский:</Label>
             <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
         </StackPanel>
-        
-        <TextBox Grid.Row="5" Grid.Column="1" Margin="10" Width="50" HorizontalAlignment="Left"/>
+
+        <TextBox x:Name="AgeTextBox" 
+                 Grid.Row="5" 
+                 Grid.Column="1" 
+                 Margin="10" 
+                 Width="50" 
+                 HorizontalAlignment="Left" 
+                 Text="{Binding Path=CongratulationModel.Age}" 
+                 PreviewTextInput="AgeTextBox_PreviewTextInput"/>
 
         <StackPanel x:Name="ButtonsZone" Grid.Row="6" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
             <Button Content="Отмена" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10" Width="50" Command="{Binding Path=AbortCommand}"/>

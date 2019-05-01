@@ -88,6 +88,8 @@ namespace AddUtil.ViewModels
 
         private void SaveCongratulation()
         {
+            this.EnsureCongratulation();
+
             if (isEditMode)
             {
                 var congratulation = 
@@ -110,6 +112,11 @@ namespace AddUtil.ViewModels
                 allCongrats.Add(CongratulationModel);
                 dbContext.SaveChanges();
             }
+        }
+
+        private void EnsureCongratulation()
+        {
+            // Проверки
         }
 
         private void AbortAppending()
