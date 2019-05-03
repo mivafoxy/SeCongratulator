@@ -31,13 +31,13 @@
 
         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Margin="10">
             <Label HorizontalAlignment="Center" VerticalAlignment="Center" >Вид 1:</Label>
-            <RadioButton HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
+            <RadioButton HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Command="{Binding Path=ChooseFirstContentTypeCommand}"/>
 
             <Label HorizontalAlignment="Center" VerticalAlignment="Center" >Вид 2:</Label>
-            <RadioButton HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
+            <RadioButton HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Command="{Binding Path=ChooseSecondContentTypeCommand}"/>
 
             <Label HorizontalAlignment="Center" VerticalAlignment="Center" >Вид 3:</Label>
-            <RadioButton HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
+            <RadioButton HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Command="{Binding Path=ChooseThirdContentTypeCommand}"/>
         </StackPanel>
 
         <TextBox Grid.Row="1" Grid.Column="1" Width="600" Height="250"  HorizontalAlignment="Center" Margin="10" Text="{Binding Path=CongratulationModel.Content, Mode=TwoWay}"/>
@@ -45,11 +45,7 @@
         <TextBox Grid.Row="3" Grid.Column="1" Margin="10" Text="{Binding Path=CongratulationModel.Interest, Mode=TwoWay}"/>
         
         <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Margin="10">
-            <Label HorizontalAlignment="Center" VerticalAlignment="Center" >Мужской:</Label>
-            <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
-
-            <Label HorizontalAlignment="Center" VerticalAlignment="Center" >Женский:</Label>
-            <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
+            <ComboBox ItemsSource="{Binding SexChooser, Mode=TwoWay}" SelectedItem="{Binding SelectedSex, Mode=TwoWay}"/>
         </StackPanel>
 
         <TextBox x:Name="AgeTextBox" 

@@ -78,7 +78,10 @@ namespace AddUtil.ViewModels
             Congratulations = new ObservableCollection<CongratulationModel>();
 
             foreach (var congratulation in dbCongrats)
-                Congratulations.Add(congratulation);
+            {
+                if (!Congratulations.Contains(congratulation))
+                    Congratulations.Add(congratulation);
+            }
         }
 
         private void DeleteCongratulation()
@@ -93,6 +96,8 @@ namespace AddUtil.ViewModels
 
             var newCongratulationViewModel = new NewCongratulationViewModel();
             await displayRootRegistry.ShowModalPresentation(newCongratulationViewModel);
+
+            this.UpdateContext();
         }
 
         private async void GoToCongratulationEdit()
@@ -111,6 +116,15 @@ namespace AddUtil.ViewModels
             await displayRootRegistry.ShowModalPresentation(
                 new NewCongratulationViewModel(
                     this.SelectedCongratulation));
+
+            this.UpdateContext();
+        }
+
+        private void UpdateContext()
+        {
+            //this.Congratulations.Clear();
+
+            this.InitCongratulationsCollection();
         }
 
         // Перенос из одной базы в другую - старая база должна подаваться аргументом, на выходе новая база, заполненная значениями со старой.
@@ -119,6 +133,8 @@ namespace AddUtil.ViewModels
             var displayRootRegistry = (Application.Current as App).DisplayRootRegistry;
 
             await displayRootRegistry.ShowModalPresentation(new MergeViewModel());
+
+            this.UpdateContext();
         }
     }
 }
