@@ -4,19 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="500" ResizeMode="NoResize">
+        Title="MainWindow" Height="450" Width="650" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-        
+
         <DataGrid 
             Margin="10"
-            HorizontalAlignment="Left"
+            HorizontalAlignment="Center"
             AutoGenerateColumns="False" 
             ItemsSource="{Binding Path=Congratulations, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" 
-            SelectedItem="{Binding Path=SelectedCongratulation, Mode=TwoWay}">
+            SelectedItem="{Binding Path=SelectedCongratulation, Mode=TwoWay}" Width="375">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Kind" Binding="{Binding Path=Kind, Mode=TwoWay}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Holiday" Binding="{Binding Path=Holiday, Mode=TwoWay}" IsReadOnly="True"/>
@@ -34,7 +34,9 @@
                     Content="Редактировать" 
                     Margin="10"
                     Command="{Binding Path=GoToCongratulationEditCommand}"/>
-            <Button Content="Удалить" Margin="10"/>
+            <Button Content="Удалить" 
+                    Margin="10"
+                    Command="{Binding Path=RemoveRecordCommand}"/>
             <Button x:Name="GoToMergeButton" 
                     Content="Загрузить данные с прошлой версии" 
                     Margin="10"

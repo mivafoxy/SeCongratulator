@@ -122,6 +122,7 @@ namespace AddUtil.ViewModels
         {
             this.CongratulationModel = new CongratulationModel();
 
+            this.CongratulationModel.Id = congratulationModel.Id;
             this.CongratulationModel.Kind = congratulationModel.Kind;
             this.CongratulationModel.Content = congratulationModel.Content;
             this.CongratulationModel.Holiday = congratulationModel.Holiday;

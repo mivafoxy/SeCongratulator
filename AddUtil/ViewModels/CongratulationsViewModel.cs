@@ -25,6 +25,7 @@ namespace AddUtil.ViewModels
             get => congratulations;
             set => SetField(ref congratulations, value);
         }
+
         //public ObservableCollection<CongratulationModel> Congratulations
         //{
         //    get;
@@ -51,7 +52,21 @@ namespace AddUtil.ViewModels
         private RelayCommand removeRecordCommand;
         public RelayCommand RemoveRecordCommand
         {
-            get => removeRecordCommand ?? (removeRecordCommand = new RelayCommand(obj => this.DeleteCongratulation()));
+            get => 
+                removeRecordCommand ?? 
+                (removeRecordCommand = 
+                    new RelayCommand(
+                        obj =>
+                        {
+                            try
+                            {
+                                this.DeleteCongratulation();
+                            }
+                            catch (Exception e)
+                            {
+                                MessageBox.Show(e.Message);
+                            }
+                        }));
         }
 
         private RelayCommand goToMergeCommand;
@@ -80,13 +95,26 @@ namespace AddUtil.ViewModels
         //
         private void InitCongratulationsCollection()
         {
-            Congratulations = dbContext.CongratulationsDbModel.ToList();
+            using (CongratulationDbContext db = new CongratulationDbContext())
+            {
+                Congratulations = new List<CongratulationModel>();
+                Congratulations = db.CongratulationsDbModel.ToList();
+            }
         }
 
         private void DeleteCongratulation()
         {
-            Congratulations.Remove(SelectedCongratulation);
-            dbContext.SaveChanges();
+            if (SelectedCongratulation == null)
+                return;
+
+            using (var db = new CongratulationDbContext())
+            {
+                var deletingCongratulation = db.CongratulationsDbModel.FirstOrDefault(congrat => congrat.Id == SelectedCongratulation.Id);
+                db.CongratulationsDbModel.Remove(deletingCongratulation);
+                SelectedCongratulation = null;
+                db.SaveChanges();
+            }
+            this.UpdateContext();
         }
 
         private async void GoToCongratulationAppending()
@@ -117,13 +145,6 @@ namespace AddUtil.ViewModels
                     this.SelectedCongratulation));
 
             this.UpdateContext();
-        }
-
-        private void CopyEditedToCurrent(
-            CongratulationModel editedCongratulation, 
-            CongratulationModel currentCongratulation)
-        {
-
         }
 
         private void UpdateContext()

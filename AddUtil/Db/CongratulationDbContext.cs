@@ -17,18 +17,6 @@ namespace AddUtil.Db
 
         }
 
-        public void AddNewRecord(CongratulationModel dbCongratulation)
-        {
-            CongratulationsDbModel.Add(dbCongratulation);
-            this.SaveChanges();
-        }
-        
-        public void DeleteRecordFromDb(CongratulationModel dbCongratulation)
-        {
-            CongratulationsDbModel.Remove(dbCongratulation);
-            this.SaveChanges();
-        }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
