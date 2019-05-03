@@ -15,12 +15,11 @@
             Margin="10"
             HorizontalAlignment="Left"
             AutoGenerateColumns="False" 
-            ItemsSource="{Binding Path=Congratulations, Mode=TwoWay}" 
+            ItemsSource="{Binding Path=Congratulations, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" 
             SelectedItem="{Binding Path=SelectedCongratulation, Mode=TwoWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Kind" Binding="{Binding Path=Kind, Mode=TwoWay}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Content" Binding="{Binding Path=Content, Mode=TwoWay}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Holiday" Binding="{Binding Path=Interest, Mode=TwoWay}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Holiday" Binding="{Binding Path=Holiday, Mode=TwoWay}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Interest" Binding="{Binding Path=Interest, Mode=TwoWay}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Age" Binding="{Binding Path=Age, Mode=TwoWay}" IsReadOnly="True"/>
             </DataGrid.Columns>

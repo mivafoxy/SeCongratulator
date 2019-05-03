@@ -19,11 +19,17 @@ namespace AddUtil.ViewModels
 
         private CongratulationDbContext dbContext = new CongratulationDbContext();
 
-        public ObservableCollection<CongratulationModel> Congratulations
+        private List<CongratulationModel> congratulations;
+        public List<CongratulationModel> Congratulations
         {
-            get;
-            set;
+            get => congratulations;
+            set => SetField(ref congratulations, value);
         }
+        //public ObservableCollection<CongratulationModel> Congratulations
+        //{
+        //    get;
+        //    set;
+        //}
 
         private CongratulationModel selectedCongratulation;
         public CongratulationModel SelectedCongratulation
@@ -74,14 +80,7 @@ namespace AddUtil.ViewModels
         //
         private void InitCongratulationsCollection()
         {
-            List<CongratulationModel> dbCongrats = dbContext.CongratulationsDbModel.ToList();
-            Congratulations = new ObservableCollection<CongratulationModel>();
-
-            foreach (var congratulation in dbCongrats)
-            {
-                if (!Congratulations.Contains(congratulation))
-                    Congratulations.Add(congratulation);
-            }
+            Congratulations = dbContext.CongratulationsDbModel.ToList();
         }
 
         private void DeleteCongratulation()
@@ -105,7 +104,7 @@ namespace AddUtil.ViewModels
             if (SelectedCongratulation == null)
             {
                 MessageBox.Show(
-                    "Выберите поздравление для редактирования.", 
+                    "Выберите поздравление для редактирования.",
                     "Ошибка редактирования");
 
                 return;
@@ -120,10 +119,15 @@ namespace AddUtil.ViewModels
             this.UpdateContext();
         }
 
+        private void CopyEditedToCurrent(
+            CongratulationModel editedCongratulation, 
+            CongratulationModel currentCongratulation)
+        {
+
+        }
+
         private void UpdateContext()
         {
-            //this.Congratulations.Clear();
-
             this.InitCongratulationsCollection();
         }
 
