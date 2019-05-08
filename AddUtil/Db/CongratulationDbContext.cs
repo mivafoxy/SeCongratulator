@@ -1,5 +1,6 @@
 ﻿using AddUtil.Models;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Configuration;
 using System.Data.Common;
 using System.Data.Entity;
@@ -12,27 +13,16 @@ namespace AddUtil.Db
     {
         public DbSet<CongratulationModel> CongratulationsDbModel { get; set; }
 
-        public CongratulationDbContext() : base(GetDbConnection(), false)
-        {
-
-        }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            modelBuilder.Configurations.Add(new CongratulationDbMap());
+            modelBuilder.Entity<CongratulationModel>()
+                .ToTable("Congratulations")
+                .Property(p => p.Id)
+                .IsRequired()
+                    .HasDatabaseGeneratedOption(
+                        DatabaseGeneratedOption.Identity);
             base.OnModelCreating(modelBuilder);
         }
 
-        private static DbConnection GetDbConnection()
-        {
-            ConnectionStringSettings connection = ConfigurationManager.ConnectionStrings["DefaultConnection"];
-            DbProviderFactory factory = DbProviderFactories.GetFactory(connection.ProviderName);
-            DbConnection dbConnection = factory.CreateConnection();
-
-            dbConnection.ConnectionString = connection.ConnectionString;
-
-            return dbConnection;
-        }
     }
 }
