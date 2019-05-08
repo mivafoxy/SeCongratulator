@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:val="clr-namespace:AddUtil.ValidationRules"
         mc:Ignorable="d"
         Title="NewCongratulationView" Height="600" Width="800">
     <Grid>
@@ -41,7 +42,15 @@
         </StackPanel>
 
         <TextBox Grid.Row="1" Grid.Column="1" Width="600" Height="250"  HorizontalAlignment="Center" Margin="10" Text="{Binding Path=CongratulationModel.Content, Mode=TwoWay}"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Margin="10" Text="{Binding Path=CongratulationModel.Holiday, Mode=TwoWay}"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="10">
+            <TextBox.Text>
+                <Binding Path="CongratulationModel.Holiday" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <val:LongerThan3ValidationRule />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
         <TextBox Grid.Row="3" Grid.Column="1" Margin="10" Text="{Binding Path=CongratulationModel.Interest, Mode=TwoWay}"/>
         
         <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Margin="10">

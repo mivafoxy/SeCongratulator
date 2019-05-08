@@ -113,6 +113,7 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Db\DbMergeService.cs" />
     <Compile Include="DisplayRootRegistry.cs" />
+    <Compile Include="ValidationRules\LongerThan3ValidationRule.cs" />
     <Compile Include="ViewModels\CongratulationsViewModel.cs" />
     <Compile Include="ViewModels\MergeViewModel.cs" />
     <Compile Include="ViewModels\NewCongratulationViewModel.cs" />
