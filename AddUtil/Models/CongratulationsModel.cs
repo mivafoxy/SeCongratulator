@@ -47,7 +47,12 @@ namespace AddUtil.Models
         public string Interest
         {
             get => interest;
-            set => this.SetField(ref interest, value);
+            set
+            {
+                if (value.Length < 3)
+                    throw new ArgumentException("Слишком короткое значение");
+                this.SetField(ref interest, value);
+            }
         }
 
         private int sex;

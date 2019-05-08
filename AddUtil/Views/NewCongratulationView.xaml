@@ -51,8 +51,11 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <TextBox Grid.Row="3" Grid.Column="1" Margin="10" Text="{Binding Path=CongratulationModel.Interest, Mode=TwoWay}"/>
-        
+        <StackPanel Grid.Row="3" Grid.Column="1" Margin="10" >
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=InterestTextBox}" Foreground="Red" />
+            <TextBox x:Name="InterestTextBox" Text="{Binding Path=CongratulationModel.Interest, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
+        </StackPanel>
+
         <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Margin="10">
             <ComboBox ItemsSource="{Binding SexChooser, Mode=TwoWay}" SelectedItem="{Binding SelectedSex, Mode=TwoWay}"/>
         </StackPanel>
