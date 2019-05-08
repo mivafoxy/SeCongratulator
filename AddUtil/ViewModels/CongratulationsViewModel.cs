@@ -36,7 +36,11 @@ namespace AddUtil.ViewModels
         public CongratulationModel SelectedCongratulation
         {
             get => selectedCongratulation;
-            set => SetField(ref selectedCongratulation, value);
+            set
+            {
+                SetField(ref selectedCongratulation, value);
+                GoToCongratulationEditCommand.RaiseCanExecuteChanged();
+            }
         }
 
         //
@@ -52,9 +56,9 @@ namespace AddUtil.ViewModels
         private RelayCommand removeRecordCommand;
         public RelayCommand RemoveRecordCommand
         {
-            get => 
-                removeRecordCommand ?? 
-                (removeRecordCommand = 
+            get =>
+                removeRecordCommand ??
+                (removeRecordCommand =
                     new RelayCommand(
                         obj =>
                         {
@@ -78,7 +82,7 @@ namespace AddUtil.ViewModels
         private RelayCommand goToCongratulationEditCommand;
         public RelayCommand GoToCongratulationEditCommand
         {
-            get => goToCongratulationEditCommand ?? (goToCongratulationEditCommand = new RelayCommand(obj => this.GoToCongratulationEdit()));
+            get => goToCongratulationEditCommand ?? (goToCongratulationEditCommand = new RelayCommand(obj => this.GoToCongratulationEdit(), (a) => SelectedCongratulation != null));
         }
 
         //

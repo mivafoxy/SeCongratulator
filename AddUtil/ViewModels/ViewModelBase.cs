@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace AddUtil.ViewModels
 {
@@ -22,8 +23,7 @@ namespace AddUtil.ViewModels
                 return false;
 
             field = value;
-            OnPropertyChanged(propertyName);
-
+            Dispatcher.CurrentDispatcher.Invoke(() => OnPropertyChanged(propertyName));
             return true;
         }
     }
