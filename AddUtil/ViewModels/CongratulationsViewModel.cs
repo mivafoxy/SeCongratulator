@@ -17,20 +17,12 @@ namespace AddUtil.ViewModels
         // Fields and properties.
         //
 
-        private CongratulationDbContext dbContext = new CongratulationDbContext();
-
         private List<CongratulationModel> congratulations;
         public List<CongratulationModel> Congratulations
         {
             get => congratulations;
             set => SetField(ref congratulations, value);
         }
-
-        //public ObservableCollection<CongratulationModel> Congratulations
-        //{
-        //    get;
-        //    set;
-        //}
 
         private CongratulationModel selectedCongratulation;
         public CongratulationModel SelectedCongratulation
@@ -40,6 +32,7 @@ namespace AddUtil.ViewModels
             {
                 SetField(ref selectedCongratulation, value);
                 GoToCongratulationEditCommand.RaiseCanExecuteChanged();
+                RemoveRecordCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -50,27 +43,27 @@ namespace AddUtil.ViewModels
         private RelayCommand goToCongratulationAppendingCommand;
         public RelayCommand GoToCongratulationAppendingCommand
         {
-            get => goToCongratulationAppendingCommand ?? (goToCongratulationAppendingCommand = new RelayCommand(obj => this.GoToCongratulationAppending()));
+            get
+            {
+                return 
+                    goToCongratulationAppendingCommand ?? 
+                        (goToCongratulationAppendingCommand = 
+                            new RelayCommand(
+                                obj => this.GoToCongratulationAppending()));
+            }
         }
 
         private RelayCommand removeRecordCommand;
         public RelayCommand RemoveRecordCommand
         {
-            get =>
-                removeRecordCommand ??
-                (removeRecordCommand =
-                    new RelayCommand(
-                        obj =>
-                        {
-                            try
-                            {
-                                this.DeleteCongratulation();
-                            }
-                            catch (Exception e)
-                            {
-                                MessageBox.Show(e.Message);
-                            }
-                        }));
+            get
+            {
+                return removeRecordCommand ??
+                    (removeRecordCommand =
+                        new RelayCommand(
+                            obj => this.DeleteCongratulation(),
+                            a => this.IsCongratulationSelected()));
+            }
         }
 
         private RelayCommand goToMergeCommand;
@@ -82,7 +75,15 @@ namespace AddUtil.ViewModels
         private RelayCommand goToCongratulationEditCommand;
         public RelayCommand GoToCongratulationEditCommand
         {
-            get => goToCongratulationEditCommand ?? (goToCongratulationEditCommand = new RelayCommand(obj => this.GoToCongratulationEdit(), (a) => SelectedCongratulation != null));
+            get
+            {
+                return
+                    goToCongratulationEditCommand ??
+                        (goToCongratulationEditCommand =
+                            new RelayCommand(
+                                obj => this.GoToCongratulationEdit(), 
+                                (a) => this.IsCongratulationSelected()));
+            }
         }
 
         //
@@ -151,10 +152,9 @@ namespace AddUtil.ViewModels
             this.UpdateContext();
         }
 
-        private void UpdateContext()
-        {
-            this.InitCongratulationsCollection();
-        }
+        private bool IsCongratulationSelected() => SelectedCongratulation != null;
+
+        private void UpdateContext() => this.InitCongratulationsCollection();
 
         // Перенос из одной базы в другую - старая база должна подаваться аргументом, на выходе новая база, заполненная значениями со старой.
         private async void GoToMergeWithOldDb()
