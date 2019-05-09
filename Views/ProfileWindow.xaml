@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ViewModel="clr-namespace:SeCongratulator.ViewModels"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:SeCongratulator"
         mc:Ignorable="d"
         Title="MainWindow" Height="340" Width="372">
@@ -11,12 +12,16 @@
         <ViewModel:ProfileWindowVM/>
     </Window.DataContext>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="97*"/>
+            <ColumnDefinition Width="269*"/>
+        </Grid.ColumnDefinitions>
         <Label Name="MainLabel" 
             Content="Заполните анкету" 
             Margin="10,22,0,0"
             FontSize="40"
             VerticalAlignment="Top"
-            HorizontalAlignment="Left"/>
+            HorizontalAlignment="Left" Grid.ColumnSpan="2"/>
         <Label Name="NameLabel"        
             Content="Имя" 
             HorizontalAlignment="Left"
@@ -25,23 +30,37 @@
         <TextBox Name="NameInput"     
             HorizontalAlignment="Left" 
             Height="25" 
-            Margin="102,111,0,0" 
+            Margin="5.2,111,0,0" 
             TextWrapping="NoWrap" 
             Text="{Binding User.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
             VerticalAlignment="Top" 
-            Width="250"/>
+            Width="250" 
+            Opacity="{Binding NameOpacity,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Background="{Binding NameColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="KeyUp">
+                    <i:InvokeCommandAction Command="{Binding CheckValid}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
         <Label Name="AgeLabel"        
             Content="Возраст" 
             HorizontalAlignment="Left"
             Margin="10,143,0,0" 
             VerticalAlignment="Top"/>
-        <ComboBox Name="AGeInput"
+        <ComboBox Name="AgeInput"
             HorizontalAlignment="Left" 
-            Margin="102,143,0,0" 
+            Margin="5.2,143,0,0" 
             VerticalAlignment="Top" 
             Width="250"
+            BorderBrush="Black"
             ItemsSource="{Binding User.Age}"
-            SelectedValue="{Binding SelectedAge, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            SelectedValue="{Binding SelectedAge, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1">
+            <!--<ComboBox.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#7F054353" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#7F054353" />
+            </ComboBox.Resources>-->
+        </ComboBox>
         <Label Name="SexLabel"        
             Content="Пол" 
             HorizontalAlignment="Left"
@@ -50,15 +69,15 @@
         <RadioButton Name="MaleChoose"
             Content="Мужской" 
             HorizontalAlignment="Left" 
-            Margin="103,181,0,0" 
+            Margin="6.2,181,0,0" 
             VerticalAlignment="Top"
-            IsChecked="{Binding IsMale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            IsChecked="{Binding IsMale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
         <RadioButton Name="FemaleChoose"
             Content="Женский" 
             HorizontalAlignment="Left" 
-            Margin="187,181,0,0" 
+            Margin="90.2,181,0,0" 
             VerticalAlignment="Top"
-            IsChecked="{Binding IsFemale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            IsChecked="{Binding IsFemale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
         <Label Name="InterestLabel"        
             Content="Увлечения" 
             HorizontalAlignment="Left"
@@ -66,11 +85,11 @@
             VerticalAlignment="Top"/>
         <ComboBox Name="InterestInput"
             HorizontalAlignment="Left" 
-            Margin="102,204,0,0" 
+            Margin="5.2,204,0,0" 
             VerticalAlignment="Top" 
             Width="250"
             ItemsSource="{Binding User.Interest}"
-            SelectedValue="{Binding SelectedInterest, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            SelectedValue="{Binding SelectedInterest, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
         <Label Name="HolidayLabel"        
             Content="Праздник" 
             HorizontalAlignment="Left"
@@ -78,24 +97,24 @@
             VerticalAlignment="Top"/>
         <ComboBox Name="HolidaytInput"
             HorizontalAlignment="Left" 
-            Margin="102,235,0,0" 
+            Margin="5.2,235,0,0" 
             VerticalAlignment="Top" 
             Width="250"
             ItemsSource="{Binding User.Holiday}"
-            SelectedItem="{Binding SelectedHoliday, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            SelectedItem="{Binding SelectedHoliday, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
         <Button Name="NextButton"
             Content="Cоздать поздравление" 
             HorizontalAlignment="Left" 
-            Margin="212,274,0,0" 
+            Margin="115.2,274,0,0" 
             VerticalAlignment="Top" 
             Width="140" Height="25"
-            Command="{Binding SearchCongratulation}"/>
+            Command="{Binding SearchCongratulation}" Grid.Column="1"/>
         <Button x:Name="ClearButton"
             Content="Очистить анкету" 
             HorizontalAlignment="Left" 
             Margin="10,274,0,0" 
             VerticalAlignment="Top" 
             Width="96" Height="25"
-            Command="{Binding ClearProfile}"/>
+            Command="{Binding ClearProfile}" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>
