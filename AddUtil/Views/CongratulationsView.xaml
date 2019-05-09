@@ -15,7 +15,7 @@
             Margin="10"
             HorizontalAlignment="Center"
             AutoGenerateColumns="False" 
-            ItemsSource="{Binding Path=Congratulations, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" 
+            ItemsSource="{Binding Path=Congratulations, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" 
             SelectedItem="{Binding Path=SelectedCongratulation, Mode=TwoWay}" Width="375">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Kind" Binding="{Binding Path=Kind, Mode=TwoWay}" IsReadOnly="True"/>

@@ -12,11 +12,7 @@ namespace AddUtil.Commands
         private Action<Object> execute;
         private Func<object, bool> canExecute;
 
-        public event EventHandler CanExecuteChanged
-        {
-            add => CommandManager.RequerySuggested += value;
-            remove => CommandManager.RequerySuggested -= value;
-        }
+        public event EventHandler CanExecuteChanged;
 
         public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
         {
@@ -32,6 +28,11 @@ namespace AddUtil.Commands
         public void Execute(object parameter)
         {
             this.execute(parameter);
+        }
+
+        public void RaiseCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, null);
         }
     }
 }

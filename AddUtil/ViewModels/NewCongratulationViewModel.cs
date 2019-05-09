@@ -19,6 +19,7 @@ namespace AddUtil.ViewModels
         // Static consts.
         //
 
+
         private const string male = "Муж.";
         private const string female = "Жен.";
         private const string bothSex = "Муж./Жен.";
@@ -60,10 +61,11 @@ namespace AddUtil.ViewModels
         {
             get
             {
-                return appendCommand ?? 
-                    (appendCommand = 
+                return appendCommand ??
+                    (appendCommand =
                     new RelayCommand(
-                        obj => {
+                        obj =>
+                        {
                             try
                             {
                                 this.SaveCongratulation();
@@ -127,7 +129,7 @@ namespace AddUtil.ViewModels
             this.CongratulationModel.Content = congratulationModel.Content;
             this.CongratulationModel.Holiday = congratulationModel.Holiday;
             this.CongratulationModel.Interest = congratulationModel.Interest;
-            
+
             this.CongratulationModel.Sex = congratulationModel.Sex;
 
             if (congratulationModel.Sex == 1)
@@ -157,22 +159,9 @@ namespace AddUtil.ViewModels
         {
             this.EnsureCongratulation();
 
-            if (isEditMode)
-            {
-                var congratulation = 
-                    dbContext.CongratulationsDbModel.First(
-                        congrat => 
-                            congrat.Id == this.CongratulationModel.Id);
-
-                congratulation.Kind = this.CongratulationModel.Kind;
-                congratulation.Content = this.CongratulationModel.Content;
-                congratulation.Holiday = this.CongratulationModel.Holiday;
-                congratulation.Interest = this.CongratulationModel.Interest;
-                congratulation.Sex = this.GetCongratulationModelSex();
-                congratulation.Age = this.CongratulationModel.Age;
-
-                dbContext.SaveChanges();
-            }
+            var congratulation = dbContext.CongratulationsDbModel.FirstOrDefault(congrat => congrat.Id == this.CongratulationModel.Id);
+            if (congratulation != null)
+                dbContext.Entry(congratulation).CurrentValues.SetValues(CongratulationModel);
             else
             {
                 var allCongrats = dbContext.CongratulationsDbModel.ToList();
@@ -182,9 +171,8 @@ namespace AddUtil.ViewModels
                 //congratulationModel.Id = allCongrats.Last().Id + 1;
 
                 dbContext.CongratulationsDbModel.Add(CongratulationModel);
-                dbContext.SaveChanges();
             }
-
+            dbContext.SaveChanges();
             this.AbortAppending();
         }
 
@@ -225,7 +213,7 @@ namespace AddUtil.ViewModels
 
             if (SelectedSex == null || SelectedSex.Length == 0)
                 throw new ArgumentException("Необходимо выбрать пол.");
-        } 
+        }
 
         private void AbortAppending()
         {
