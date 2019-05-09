@@ -14,24 +14,25 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SeCongratulator.Models;
+using SeCongratulator.ViewModels;
 
-namespace SeCongratulator
+namespace SeCongratulator.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ProfileWindow : Window
     {
-        public MainWindow()
+        public ProfileWindow()
         {
             InitializeComponent();
-            ApplicationContext db = new ApplicationContext();
-            try
-            {
-                db.Congratulations.Load();
-                MessageBox.Show(db.Congratulations.First().ToString());
-            }
-            catch (Exception e) { MessageBox.Show(e.Message); }
+            //ApplicationContext db = new ApplicationContext();
+            //try
+            //{
+            //    db.Congratulations.Load();
+            //    MessageBox.Show(db.Congratulations.First().ToString());
+            //}
+            //catch (Exception e) { MessageBox.Show(e.Message); }
         }
     }
 }
