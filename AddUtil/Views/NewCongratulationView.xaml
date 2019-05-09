@@ -3,9 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:val="clr-namespace:AddUtil.ValidationRules"
         mc:Ignorable="d"
         Title="NewCongratulationView" Height="600" Width="800">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip"
+                Value="{Binding RelativeSource={RelativeSource Self},
+                    Path=(Validation.Errors)[0].ErrorContent}" />
+                    <Setter Property="Foreground" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -41,33 +52,52 @@
             <RadioButton HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Command="{Binding Path=ChooseThirdContentTypeCommand}"/>
         </StackPanel>
 
-        <TextBox Grid.Row="1" Grid.Column="1" Width="600" Height="250"  HorizontalAlignment="Center" Margin="10" Text="{Binding Path=CongratulationModel.Content, Mode=TwoWay}"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Margin="10">
+        <TextBox Grid.Row="1" Grid.Column="1" Width="600" Height="250"  HorizontalAlignment="Center" Margin="10">
             <TextBox.Text>
-                <Binding Path="CongratulationModel.Holiday" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="CongratulationModel.Content" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
-                        <val:LongerThan3ValidationRule />
+                        <DataErrorValidationRule/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <StackPanel Grid.Row="3" Grid.Column="1" Margin="10" >
-            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=InterestTextBox}" Foreground="Red" />
-            <TextBox x:Name="InterestTextBox" Text="{Binding Path=CongratulationModel.Interest, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
-        </StackPanel>
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="10">
+            <TextBox.Text>
+                <Binding Path="CongratulationModel.Holiday" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <DataErrorValidationRule />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="10">
+            <TextBox.Text>
+                <Binding Path="CongratulationModel.Interest" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <DataErrorValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
         <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Margin="10">
-            <ComboBox ItemsSource="{Binding SexChooser, Mode=TwoWay}" SelectedItem="{Binding SelectedSex, Mode=TwoWay}"/>
+            <ComboBox ItemsSource="{Binding SexChooser, Mode=TwoWay}" SelectedItem="{Binding SelectedSex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
-        <TextBox x:Name="AgeTextBox" 
+        <TextBox  
                  Grid.Row="5" 
                  Grid.Column="1" 
                  Margin="10" 
                  Width="50" 
-                 HorizontalAlignment="Left" 
-                 Text="{Binding Path=CongratulationModel.Age}" 
-                 PreviewTextInput="AgeTextBox_PreviewTextInput"/>
+                 HorizontalAlignment="Left">
+            <TextBox.Text>
+                <Binding Path="CongratulationModel.Age" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <DataErrorValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
         <StackPanel x:Name="ButtonsZone" Grid.Row="6" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
             <Button Content="Отмена" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10" Width="50" Command="{Binding Path=AbortCommand}"/>

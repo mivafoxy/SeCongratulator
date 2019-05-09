@@ -104,6 +104,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.8.19076.18510, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <HintPath>..\SeCongratulator\packages\Xceed.Wpf.Toolkit.3.8.19076.18510\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -113,7 +116,6 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Db\DbMergeService.cs" />
     <Compile Include="DisplayRootRegistry.cs" />
-    <Compile Include="ValidationRules\LongerThan3ValidationRule.cs" />
     <Compile Include="ViewModels\CongratulationsViewModel.cs" />
     <Compile Include="ViewModels\MergeViewModel.cs" />
     <Compile Include="ViewModels\NewCongratulationViewModel.cs" />

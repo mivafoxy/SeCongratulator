@@ -4,8 +4,6 @@ using AddUtil.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace AddUtil.ViewModels
@@ -28,8 +26,8 @@ namespace AddUtil.ViewModels
         // Props and fields.
         //
 
-        private readonly bool isEditMode;
         private readonly CongratulationDbContext dbContext = new CongratulationDbContext();
+
 
         private List<string> sexChooser;
         public List<string> SexChooser
@@ -42,14 +40,20 @@ namespace AddUtil.ViewModels
         public string SelectedSex
         {
             get => selectedSex;
-            set => SetField(ref selectedSex, value);
+            set
+            {
+                SetField(ref selectedSex, value);
+            }
         }
 
         private CongratulationModel congratulationModel;
         public CongratulationModel CongratulationModel
         {
             get => congratulationModel;
-            set => SetField(ref congratulationModel, value);
+            set
+            {
+                SetField(ref congratulationModel, value);
+            }
         }
 
         //
@@ -63,18 +67,8 @@ namespace AddUtil.ViewModels
             {
                 return appendCommand ??
                     (appendCommand =
-                    new RelayCommand(
-                        obj =>
-                        {
-                            try
-                            {
-                                this.SaveCongratulation();
-                            }
-                            catch (Exception e)
-                            {
-                                MessageBox.Show(e.Message);
-                            }
-                        }));
+                        new RelayCommand(
+                            obj => this.SaveCongratulation()));
             }
         }
 
@@ -104,14 +98,12 @@ namespace AddUtil.ViewModels
 
         public NewCongratulationViewModel()
         {
-            isEditMode = false;
             this.CongratulationModel = new CongratulationModel();
             InitSexChooser();
         }
 
         public NewCongratulationViewModel(CongratulationModel congratulationModel)
         {
-            isEditMode = true;
             CopyCongratulation(congratulationModel);
             InitSexChooser();
         }
@@ -157,21 +149,41 @@ namespace AddUtil.ViewModels
 
         private void SaveCongratulation()
         {
-            this.EnsureCongratulation();
+            var errors = new List<string>();
+            bool hasNoErrorsInModel = this.CongratulationModel.IsAllFilledCorrect(out errors);
 
-            var congratulation = dbContext.CongratulationsDbModel.FirstOrDefault(congrat => congrat.Id == this.CongratulationModel.Id);
+            if (!hasNoErrorsInModel)
+            {
+                string errorStrings = string.Empty;
+
+                foreach (var error in errors)
+                    errorStrings += (error + "\r\n");
+
+                MessageBox.Show(errorStrings);
+
+                return;
+            }
+
+            var congratulation = 
+                dbContext.CongratulationsDbModel.
+                    FirstOrDefault(
+                        congrat => 
+                            congrat.Id == this.CongratulationModel.Id);
+
             if (congratulation != null)
-                dbContext.Entry(congratulation).CurrentValues.SetValues(CongratulationModel);
+            {
+                var entry = dbContext.Entry(congratulation);
+
+                entry.CurrentValues.
+                    SetValues(
+                        CongratulationModel);
+            }
             else
             {
                 var allCongrats = dbContext.CongratulationsDbModel.ToList();
-
-                // Костыль на идентификатор модели (как сделать автоинкремент?)
-
-                //congratulationModel.Id = allCongrats.Last().Id + 1;
-
                 dbContext.CongratulationsDbModel.Add(CongratulationModel);
             }
+
             dbContext.SaveChanges();
             this.AbortAppending();
         }
@@ -188,31 +200,14 @@ namespace AddUtil.ViewModels
                 throw new ArgumentOutOfRangeException("WTF?!!! Only two sex in this world!");
         }
 
-        private void EnsureCongratulation()
+        private bool IsCongratulationCorrectlyFilled()
         {
-            // Проверки
-            if (this.CongratulationModel.Kind == null)
-                throw new ArgumentNullException("Нельзя оставлять вид поздравления путсым.");
+            bool isSexChosen = (SelectedSex != null && SelectedSex.Length != 0);
 
-            if (this.CongratulationModel.Age == null || this.CongratulationModel.Age.Length == 0)
-                throw new ArgumentException("Необходим возраст.");
+            var errors = new List<string>();
+            bool hasNoErrorsInModel = this.CongratulationModel.IsAllFilledCorrect(out errors);
 
-            int age = int.Parse(this.CongratulationModel.Age);
-
-            if (age >= 120 || age <= 0)
-                throw new ArgumentException("Некорректный возраст. Допустимый дипазон: от 0 до 120 лет.");
-
-            if (this.CongratulationModel.Content == null || this.CongratulationModel.Content.Length == 0)
-                throw new ArgumentException("Контент должен быть.");
-
-            if (this.CongratulationModel.Holiday == null || this.CongratulationModel.Content.Length == 0)
-                throw new ArgumentException("К какому празднику относится поздравление?");
-
-            if (this.CongratulationModel.Interest == null || this.CongratulationModel.Interest.Length == 0)
-                throw new ArgumentException("Какие интересы?");
-
-            if (SelectedSex == null || SelectedSex.Length == 0)
-                throw new ArgumentException("Необходимо выбрать пол.");
+            return hasNoErrorsInModel && isSexChosen;
         }
 
         private void AbortAppending()
