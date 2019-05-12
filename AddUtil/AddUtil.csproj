@@ -116,6 +116,8 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Db\DbMergeService.cs" />
     <Compile Include="DisplayRootRegistry.cs" />
+    <Compile Include="Models\OldDbModels\OldComgratulationModel.cs" />
+    <Compile Include="Models\OldDbModels\OldHolidayModel.cs" />
     <Compile Include="ViewModels\CongratulationsViewModel.cs" />
     <Compile Include="ViewModels\MergeViewModel.cs" />
     <Compile Include="ViewModels\NewCongratulationViewModel.cs" />
