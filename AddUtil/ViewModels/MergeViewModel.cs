@@ -1,4 +1,5 @@
 ﻿using AddUtil.Commands;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,39 @@ namespace AddUtil.ViewModels
         public RelayCommand AbortCommand
         {
             get => abortCommand ?? (abortCommand = new RelayCommand((obj) => this.Abort()));
+        }
+
+        private RelayCommand openFileDialogForOldDbCommand;
+        public RelayCommand OpenFileDialogForOldDbCommand
+        {
+            get
+            {
+                return
+                    openFileDialogForOldDbCommand ??
+                        (openFileDialogForOldDbCommand = 
+                            new RelayCommand(
+                                (
+                                    obj =>
+                                    {
+                                        PathToOldDb = this.GetPathToFile();
+                                    })));
+            }
+        }
+
+        private RelayCommand openFileDialogForNewDbCommand;
+        public RelayCommand OpenFileDialogForNewDbCommand
+        {
+            get
+            {
+                return
+                    openFileDialogForNewDbCommand ??
+                        (openFileDialogForNewDbCommand = 
+                            new RelayCommand(
+                                obj =>
+                                {
+                                    PathToNewDb = this.GetPathToFile();
+                                }));
+            }
         }
 
         private void Abort()
@@ -82,6 +116,15 @@ namespace AddUtil.ViewModels
                 !(isPathToOldDbEmpty || isPathToNewDbEmpty);
 
             return isAllPathsFilled;
+        }
+
+        private string GetPathToFile()
+        {
+            var fileDialog = new OpenFileDialog();
+            if (fileDialog.ShowDialog() == true)
+                return fileDialog.FileName;
+            else
+                return string.Empty;
         }
     }
 }

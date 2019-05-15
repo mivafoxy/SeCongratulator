@@ -29,14 +29,16 @@
             <TextBox x:Name="OldDbPath" 
                      Grid.Column="1" 
                      Margin="10" 
-                     Width="300"/>
+                     Width="300"
+                     Text="{Binding PathToOldDb}"/>
            
             <Button x:Name="OldDbPathButton" 
                     Content="..." 
                     Grid.Column="2" 
                     Margin="10" 
                     FontSize="20" 
-                    Width="40"/>
+                    Width="40"
+                    Command="{Binding OpenFileDialogForOldDbCommand}"/>
         </StackPanel>
 
         <StackPanel x:Name="NewDbPathZone" 
@@ -56,14 +58,16 @@
             <TextBox x:Name="NewDbPath" 
                      Grid.Column="1" 
                      Margin="10" 
-                     Width="300"/>
+                     Width="300"
+                     Text="{Binding PathToNewDb}"/>
             
             <Button x:Name="NewDbPathButton" 
                     Content="..." 
                     Grid.Column="2" 
                     Margin="10" 
                     Width="40" 
-                    FontSize="20"/>
+                    FontSize="20"
+                    Command="{Binding OpenFileDialogForNewDbCommand}"/>
         </StackPanel>
 
         <StackPanel x:Name="DialogButtonsZone" 
@@ -80,7 +84,8 @@
             <Button x:Name="AbortButton" 
                     Content="Отмена" 
                     Margin="5" 
-                    FontSize="20"/>
+                    FontSize="20"
+                    Command="{Binding AbortCommand}"/>
         </StackPanel>
         
         <!--Сделать progressBar-->
