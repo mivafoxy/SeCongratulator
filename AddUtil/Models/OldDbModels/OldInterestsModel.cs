@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AddUtil.Models.OldDbModels
 {
-    public class OldHolidayModel : ModelBase
+    public class OldInterestsModel : ModelBase
     {
         private int id;
         public int Id
