@@ -1,4 +1,6 @@
 ﻿using AddUtil.Commands;
+using AddUtil.Db;
+using AddUtil.Models;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -14,6 +16,9 @@ namespace AddUtil.ViewModels
     /// </summary>
     public class MergeViewModel : ViewModelBase
     {
+        private CongratulationDbContext newDbContext = new CongratulationDbContext();
+        private OldDbContext oldDbContext = new OldDbContext();
+
         private RelayCommand runMergeCommand;
         public RelayCommand RunMergeCommand
         {
@@ -97,7 +102,62 @@ namespace AddUtil.ViewModels
 
         private void MergeDatabases()
         {
+            this.CopyClishes();
+            this.CopyPoems();
+        }
 
+        private void CopyClishes()
+        {
+            var clishes = oldDbContext.ClishesDbModel;
+
+            foreach (var clishe in clishes)
+            {
+                var congratulation = new CongratulationModel
+                {
+                    Age = clishe.Age,
+                    Content = clishe.Content,
+                    Holiday = clishe.Holiday,
+                    Interest = clishe.Interests,
+                    Sex = this.GetSexFrom(clishe.Sex),
+                    Kind = "Клише"
+                };
+
+                newDbContext.CongratulationsDbModel.Add(congratulation);
+            }
+
+            newDbContext.SaveChanges();
+        }
+
+        private void CopyPoems()
+        {
+            var poems = oldDbContext.PoemsDbModel;
+
+            foreach (var poem in poems)
+            {
+                var congratulation = new CongratulationModel
+                {
+                    Age = poem.Age,
+                    Content = poem.Content,
+                    Holiday = poem.Holiday,
+                    Interest = poem.Interests,
+                    Sex = this.GetSexFrom(poem.Sex),
+                    Kind = "Поэма"
+                };
+
+                newDbContext.CongratulationsDbModel.Add(congratulation);
+            }
+
+            newDbContext.SaveChanges();
+        }
+
+        private int GetSexFrom(string oldSex)
+        {
+            if (oldSex.Equals("Женский"))
+                return 0;
+            else if (oldSex.Equals("Мужской"))
+                return 1;
+            else
+                return 2;
         }
 
         private bool HasFilledPaths()

@@ -79,7 +79,8 @@
             <Button x:Name="DoMergeButton" 
                     Content="Переместить" 
                     Margin="5" 
-                    FontSize="20"/>
+                    FontSize="20"
+                    Command="{Binding RunMergeCommand}"/>
             
             <Button x:Name="AbortButton" 
                     Content="Отмена" 

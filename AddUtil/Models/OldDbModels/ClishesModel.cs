@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace AddUtil.Models.OldDbModels
 {
-    public class OldPoemsModel : ModelBase
+    [Table("Cliches")]
+    public class ClishesModel : ModelBase
     {
         private int id;
         public int Id

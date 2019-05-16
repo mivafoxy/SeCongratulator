@@ -115,13 +115,13 @@
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Db\DbMergeService.cs" />
+    <Compile Include="Db\OldDbContext.cs" />
     <Compile Include="DisplayRootRegistry.cs" />
-    <Compile Include="Models\OldDbModels\OldClisheModel.cs" />
-    <Compile Include="Models\OldDbModels\OldComgratulationModel.cs" />
+    <Compile Include="Models\OldDbModels\ClishesModel.cs" />
     <Compile Include="Models\OldDbModels\OldHolidayModel.cs" />
     <Compile Include="Models\OldDbModels\OldInterestsModel.cs" />
     <Compile Include="Models\OldDbModels\OldPicturesModel.cs" />
-    <Compile Include="Models\OldDbModels\OldPoemsModel.cs" />
+    <Compile Include="Models\OldDbModels\PoemsModel.cs" />
     <Compile Include="ViewModels\CongratulationsViewModel.cs" />
     <Compile Include="ViewModels\MergeViewModel.cs" />
     <Compile Include="ViewModels\NewCongratulationViewModel.cs" />
