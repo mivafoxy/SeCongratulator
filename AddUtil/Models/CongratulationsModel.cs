@@ -11,6 +11,8 @@ namespace AddUtil.Models
     /// <summary>
     /// Инкапсуляция бизнес логики поздравления.
     /// </summary>
+    /// 
+    [Table("Congratulations")]
     public class CongratulationModel : ModelBase, IDataErrorInfo
     {
         //
