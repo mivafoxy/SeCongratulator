@@ -43,14 +43,11 @@
 
 
         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Margin="10">
-            <Label HorizontalAlignment="Center" VerticalAlignment="Center" >Вид 1:</Label>
+            <Label HorizontalAlignment="Center" VerticalAlignment="Center" >Клише:</Label>
             <RadioButton HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Command="{Binding Path=ChooseFirstContentTypeCommand}"/>
 
-            <Label HorizontalAlignment="Center" VerticalAlignment="Center" >Вид 2:</Label>
+            <Label HorizontalAlignment="Center" VerticalAlignment="Center" >Поэма:</Label>
             <RadioButton HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Command="{Binding Path=ChooseSecondContentTypeCommand}"/>
-
-            <Label HorizontalAlignment="Center" VerticalAlignment="Center" >Вид 3:</Label>
-            <RadioButton HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Command="{Binding Path=ChooseThirdContentTypeCommand}"/>
         </StackPanel>
 
         <TextBox Grid.Row="1" Grid.Column="1" Width="600" Height="250"  HorizontalAlignment="Center" Margin="10">

@@ -1,4 +1,7 @@
 ﻿using AddUtil.Commands;
+using AddUtil.Db;
+using AddUtil.Models;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +16,9 @@ namespace AddUtil.ViewModels
     /// </summary>
     public class MergeViewModel : ViewModelBase
     {
+        private CongratulationDbContext newDbContext = new CongratulationDbContext();
+        private OldDbContext oldDbContext = new OldDbContext();
+
         private RelayCommand runMergeCommand;
         public RelayCommand RunMergeCommand
         {
@@ -22,8 +28,8 @@ namespace AddUtil.ViewModels
                     runMergeCommand ??
                         (runMergeCommand =
                             new RelayCommand(
-                                obj => this.MergeDatabases(),
-                                a => this.HasFilledPaths()));
+                                obj => 
+                                    this.MergeDatabases()));
             }
         }
 
@@ -33,55 +39,85 @@ namespace AddUtil.ViewModels
             get => abortCommand ?? (abortCommand = new RelayCommand((obj) => this.Abort()));
         }
 
+        public MergeViewModel()
+        {
+        }
+
         private void Abort()
         {
             var displayRoot = (Application.Current as App).DisplayRootRegistry;
             displayRoot.HidePresentation(this);
         }
 
-        private string pathToOldDb;
-        public string PathToOldDb
-        {
-            get => pathToOldDb;
-            set
-            {
-                SetField(ref pathToOldDb, value);
-                this.RunMergeCommand.RaiseCanExecuteChanged();
-            }
-        }
-
-        private string pathToNewDb;
-        public string PathToNewDb
-        {
-            get => pathToNewDb;
-            set 
-            {
-                SetField(ref pathToNewDb, value);
-                this.RunMergeCommand.RaiseCanExecuteChanged();
-            }
-        }
-
         private void MergeDatabases()
         {
+            try
+            {
+                this.CopyClishes();
+                this.CopyPoems();
 
+                MessageBox.Show("Успех!");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Провал!");
+            }
+
+            this.Abort();
         }
 
-        private bool HasFilledPaths()
+        private void CopyClishes()
         {
-            bool isPathToOldDbEmpty = 
-                this.PathToOldDb == null || 
-                this.PathToOldDb.Equals(string.Empty) || 
-                this.PathToOldDb.Length == 0;
+            var clishes = oldDbContext.ClishesDbModel;
 
-            bool isPathToNewDbEmpty =
-                this.PathToNewDb == null ||
-                this.PathToNewDb.Equals(string.Empty) ||
-                this.PathToNewDb.Length == 0;
+            foreach (var clishe in clishes)
+            {
+                var congratulation = new CongratulationModel
+                {
+                    Age = clishe.Age,
+                    Content = clishe.Content,
+                    Holiday = clishe.Holiday,
+                    Interest = clishe.Interests,
+                    Sex = this.GetSexFrom(clishe.Sex),
+                    Kind = "Клише"
+                };
 
-            bool isAllPathsFilled =
-                !(isPathToOldDbEmpty || isPathToNewDbEmpty);
+                newDbContext.CongratulationsDbModel.Add(congratulation);
+            }
 
-            return isAllPathsFilled;
+            newDbContext.SaveChanges();
+        }
+
+        private void CopyPoems()
+        {
+            var poems = oldDbContext.PoemsDbModel;
+
+            foreach (var poem in poems)
+            {
+                var congratulation = new CongratulationModel
+                {
+                    Age = poem.Age,
+                    Content = poem.Content,
+                    Holiday = poem.Holiday,
+                    Interest = poem.Interests,
+                    Sex = this.GetSexFrom(poem.Sex),
+                    Kind = "Поэма"
+                };
+
+                newDbContext.CongratulationsDbModel.Add(congratulation);
+            }
+
+            newDbContext.SaveChanges();
+        }
+
+        private int GetSexFrom(string oldSex)
+        {
+            if (oldSex.Equals("Женский"))
+                return 0;
+            else if (oldSex.Equals("Мужской"))
+                return 1;
+            else
+                return 2;
         }
     }
 }
