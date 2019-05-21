@@ -28,8 +28,8 @@ namespace AddUtil.ViewModels
                     runMergeCommand ??
                         (runMergeCommand =
                             new RelayCommand(
-                                obj => this.MergeDatabases(),
-                                a => this.HasFilledPaths()));
+                                obj => 
+                                    this.MergeDatabases()));
             }
         }
 
@@ -39,37 +39,8 @@ namespace AddUtil.ViewModels
             get => abortCommand ?? (abortCommand = new RelayCommand((obj) => this.Abort()));
         }
 
-        private RelayCommand openFileDialogForOldDbCommand;
-        public RelayCommand OpenFileDialogForOldDbCommand
+        public MergeViewModel()
         {
-            get
-            {
-                return
-                    openFileDialogForOldDbCommand ??
-                        (openFileDialogForOldDbCommand = 
-                            new RelayCommand(
-                                (
-                                    obj =>
-                                    {
-                                        PathToOldDb = this.GetPathToFile();
-                                    })));
-            }
-        }
-
-        private RelayCommand openFileDialogForNewDbCommand;
-        public RelayCommand OpenFileDialogForNewDbCommand
-        {
-            get
-            {
-                return
-                    openFileDialogForNewDbCommand ??
-                        (openFileDialogForNewDbCommand = 
-                            new RelayCommand(
-                                obj =>
-                                {
-                                    PathToNewDb = this.GetPathToFile();
-                                }));
-            }
         }
 
         private void Abort()
@@ -78,32 +49,21 @@ namespace AddUtil.ViewModels
             displayRoot.HidePresentation(this);
         }
 
-        private string pathToOldDb;
-        public string PathToOldDb
-        {
-            get => pathToOldDb;
-            set
-            {
-                SetField(ref pathToOldDb, value);
-                this.RunMergeCommand.RaiseCanExecuteChanged();
-            }
-        }
-
-        private string pathToNewDb;
-        public string PathToNewDb
-        {
-            get => pathToNewDb;
-            set 
-            {
-                SetField(ref pathToNewDb, value);
-                this.RunMergeCommand.RaiseCanExecuteChanged();
-            }
-        }
-
         private void MergeDatabases()
         {
-            this.CopyClishes();
-            this.CopyPoems();
+            try
+            {
+                this.CopyClishes();
+                this.CopyPoems();
+
+                MessageBox.Show("Успех!");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Провал!");
+            }
+
+            this.Abort();
         }
 
         private void CopyClishes()
@@ -158,33 +118,6 @@ namespace AddUtil.ViewModels
                 return 1;
             else
                 return 2;
-        }
-
-        private bool HasFilledPaths()
-        {
-            bool isPathToOldDbEmpty = 
-                this.PathToOldDb == null || 
-                this.PathToOldDb.Equals(string.Empty) || 
-                this.PathToOldDb.Length == 0;
-
-            bool isPathToNewDbEmpty =
-                this.PathToNewDb == null ||
-                this.PathToNewDb.Equals(string.Empty) ||
-                this.PathToNewDb.Length == 0;
-
-            bool isAllPathsFilled =
-                !(isPathToOldDbEmpty || isPathToNewDbEmpty);
-
-            return isAllPathsFilled;
-        }
-
-        private string GetPathToFile()
-        {
-            var fileDialog = new OpenFileDialog();
-            if (fileDialog.ShowDialog() == true)
-                return fileDialog.FileName;
-            else
-                return string.Empty;
         }
     }
 }
