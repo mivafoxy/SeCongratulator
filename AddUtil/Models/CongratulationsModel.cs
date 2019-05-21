@@ -100,11 +100,20 @@ namespace AddUtil.Models
         {
             errors = new List<string>();
 
-            errors.Add(this.GetErrorIfAgeIncorrect());
-            errors.Add(this.GetErrorIfHolidayEmpty());
-            errors.Add(this.GetErrorIfInterestEmpty());
-            errors.Add(this.GetErrorIfKindEmpty());
-            errors.Add(this.GetErrorIfNoContent());
+            if (this.GetErrorIfAgeIncorrect().Length != 0)
+                errors.Add(this.GetErrorIfAgeIncorrect());
+
+            if (this.GetErrorIfHolidayEmpty().Length != 0)
+                errors.Add(this.GetErrorIfHolidayEmpty());
+
+            if (this.GetErrorIfInterestEmpty().Length != 0)
+                errors.Add(this.GetErrorIfInterestEmpty());
+
+            if (this.GetErrorIfKindEmpty().Length != 0)
+                errors.Add(this.GetErrorIfKindEmpty());
+
+            if (this.GetErrorIfNoContent().Length != 0)
+                errors.Add(this.GetErrorIfNoContent());
 
             return (errors.Count == 0);
         }
@@ -147,7 +156,7 @@ namespace AddUtil.Models
                 return "Необходим возраст.";
 
 
-            int age = 0; 
+            int age = 0;
             bool isParsed = int.TryParse(this.Age, out age);
 
             if (!isParsed)

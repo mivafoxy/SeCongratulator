@@ -75,19 +75,13 @@ namespace AddUtil.ViewModels
         public RelayCommand chooseFirstContentTypeCommand;
         public RelayCommand ChooseFirstContentTypeCommand
         {
-            get => chooseFirstContentTypeCommand ?? (chooseFirstContentTypeCommand = new RelayCommand(obj => ChooseContentTypeInModel("LOL")));
+            get => chooseFirstContentTypeCommand ?? (chooseFirstContentTypeCommand = new RelayCommand(obj => ChooseContentTypeInModel("Клише")));
         }
 
         private RelayCommand chooseSecondContentTypeCommand;
         public RelayCommand ChooseSecondContentTypeCommand
         {
-            get => chooseSecondContentTypeCommand ?? (chooseSecondContentTypeCommand = new RelayCommand(obj => ChooseContentTypeInModel("VLAD")));
-        }
-
-        private RelayCommand chooseThirdContentTypeCommand;
-        public RelayCommand ChooseThirdContentTypeCommand
-        {
-            get => chooseThirdContentTypeCommand ?? (chooseThirdContentTypeCommand = new RelayCommand(obj => ChooseContentTypeInModel("SUSI")));
+            get => chooseSecondContentTypeCommand ?? (chooseSecondContentTypeCommand = new RelayCommand(obj => ChooseContentTypeInModel("Поэма")));
         }
 
         private RelayCommand abortCommand;
