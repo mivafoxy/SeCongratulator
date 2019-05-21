@@ -1,0 +1,46 @@
+﻿<Window x:Class="AddUtil.Views.CongratulationsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="650" ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+
+        <DataGrid 
+            Margin="10"
+            HorizontalAlignment="Center"
+            AutoGenerateColumns="False" 
+            ItemsSource="{Binding Path=Congratulations, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" 
+            SelectedItem="{Binding Path=SelectedCongratulation, Mode=TwoWay}" Width="375">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Kind" Binding="{Binding Path=Kind, Mode=TwoWay}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Holiday" Binding="{Binding Path=Holiday, Mode=TwoWay}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Interest" Binding="{Binding Path=Interest, Mode=TwoWay}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Age" Binding="{Binding Path=Age, Mode=TwoWay}" IsReadOnly="True"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center">
+            <Button x:Name="GoToAppendCongratButon" 
+                    Content="Добавить поздравление" 
+                    Margin="10"
+                    Command="{Binding Path=GoToCongratulationAppendingCommand}"/>
+            <Button x:Name="GoToEditButton" 
+                    Content="Редактировать" 
+                    Margin="10"
+                    Command="{Binding Path=GoToCongratulationEditCommand}"/>
+            <Button Content="Удалить" 
+                    Margin="10"
+                    Command="{Binding Path=RemoveRecordCommand}"/>
+            <Button x:Name="GoToMergeButton" 
+                    Content="Загрузить данные с прошлой версии" 
+                    Margin="10"
+                    Command="{Binding Path=GoToMergeCommand}"/>
+        </StackPanel>
+    </Grid>
+</Window>
