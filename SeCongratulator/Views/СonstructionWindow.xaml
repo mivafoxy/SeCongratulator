@@ -1,0 +1,367 @@
+﻿<Window x:Class="SeCongratulator.Views.СonstructionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SeCongratulator.Views"
+        xmlns:ViewModel="clr-namespace:SeCongratulator.ViewModels"
+        mc:Ignorable="d"
+        Title="Геренератор поздравлений" 
+        Height="700" Width="1200" 
+        ScrollViewer.HorizontalScrollBarVisibility="Visible" 
+        ScrollViewer.CanContentScroll="True" 
+        MinWidth="1200" MinHeight="677"
+        ResizeMode="NoResize">
+    <Window.DataContext>
+        <ViewModel:СonstructionWindowVM/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="{Binding PathBackgroundTheme, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="550"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="27*"/>
+                <RowDefinition Height="248*"/>
+                <RowDefinition Height="275*"/>
+            </Grid.RowDefinitions>
+            <RadioButton 
+                x:Name="radioButton1" 
+                Panel.ZIndex="1" 
+                Grid.Column="0" 
+                Grid.Row="1" 
+                Margin="20,0,0,1" 
+                Cursor="Hand" 
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Left" 
+                IsChecked="{Binding IsChooseImage_1, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                IsEnabled="{Binding IsAddImage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Image 
+                Panel.ZIndex="10" 
+                Grid.Column="0" 
+                Grid.Row="1" 
+                Margin="20,43,28,20" 
+                Name="Image1"
+                Source="{Binding PathCongratulationImage_1, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+            </Image>
+            <RadioButton 
+                x:Name="radioButton2" 
+                Panel.ZIndex="1" 
+                Grid.Column="1" 
+                Grid.Row="1" 
+                Margin="35,0,0,1" 
+                Cursor="Hand" 
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Left" 
+                IsChecked="{Binding IsChooseImage_2, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                IsEnabled="{Binding IsAddImage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Image 
+                Panel.ZIndex="10" 
+                Grid.Column="1" 
+                Grid.Row="1" 
+                Margin="35,43,25,20" 
+                Name="Image2"
+                Source="{Binding PathCongratulationImage_2, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+            </Image>
+            <RadioButton 
+                x:Name="radioButton3" 
+                Panel.ZIndex="1"  
+                Grid.Column="0" 
+                Grid.Row="2" 
+                Margin="20,0,0,39" 
+                Cursor="Hand" 
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Left" 
+                RenderTransformOrigin="1.222,0.524"
+                IsChecked="{Binding IsChooseImage_3, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                IsEnabled="{Binding IsAddImage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Image 
+                Panel.ZIndex="10" 
+                Grid.Column="0" 
+                Grid.Row="2" 
+                Margin="20,32,28,58" 
+                Name="Image3"
+                Source="{Binding PathCongratulationImage_3, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+            </Image>
+            <RadioButton 
+                x:Name="radioButton4" 
+                Panel.ZIndex="1" 
+                Grid.Column="1" 
+                Grid.Row="2" 
+                Margin="35,0,0,39" 
+                Cursor="Hand" 
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Left"
+                IsChecked="{Binding IsChooseImage_4, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                IsEnabled="{Binding IsAddImage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Image 
+                Panel.ZIndex="10" 
+                Grid.Column="1" 
+                Grid.Row="2" 
+                Margin="35,32,25,58" 
+                Name="Image4"
+                Source="{Binding PathCongratulationImage_4, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+            </Image>
+            <CheckBox 
+                Name="checkBox3" 
+                Panel.ZIndex="1" 
+                HorizontalAlignment="Left" 
+                Margin="10,5,0,0" 
+                VerticalAlignment="Top" 
+                Grid.Row="1"
+                IsChecked="{Binding IsAddImage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                Command="{Binding ClickAddImageToCongratulation}"/>
+            <StackPanel 
+                Name="PicPanel" 
+                HorizontalAlignment="Left" 
+                Panel.ZIndex="0" 
+                Height="520" 
+                Margin="0,20,0,0" 
+                VerticalAlignment="Top" 
+                Width="586" 
+                Grid.ColumnSpan="2" 
+                Grid.RowSpan="3">
+                <StackPanel.Background>
+                    <ImageBrush 
+                        ImageSource="{Binding PathPanelTheme, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                        Stretch="Fill"/>
+                </StackPanel.Background>
+            </StackPanel>
+        </Grid>
+        <Label 
+            x:Name="labelTitel" 
+            Grid.Row="0" 
+            Panel.ZIndex="1" 
+            Grid.Column="0" 
+            FontFamily="Segoe UI Semibold" 
+            FontSize="20" 
+            VerticalAlignment="Top" 
+            HorizontalAlignment="Center" 
+            Margin="144,20,169,0" 
+            Content="Выбор текста поздравления" 
+            Width="283" 
+            Foreground="{Binding ColorHeader, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+            Background="{x:Null}"/>
+        <CheckBox 
+            x:Name="checkBox1" 
+            Grid.Row="0" 
+            Panel.ZIndex="1" 
+            Grid.Column="0" 
+            Margin="27,261,549,275"
+            Command="{Binding ClickAddPoemToCongratulation}"
+            IsEnabled="{Binding IsNotEmptyPoem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            IsChecked="{Binding IsAddPoem,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+        </CheckBox>
+        <RichTextBox 
+            x:Name="richTextBox1" 
+            Panel.ZIndex="1"  
+            Grid.Row="0" 
+            Grid.Column="0" 
+            Width="450" 
+            FontFamily="Segoe UI Semilight" 
+            FontSize="20" 
+            Margin="63,57,83,280" 
+            BorderBrush="#FF72C1F7" 
+            Background="White" 
+            ScrollViewer.CanContentScroll="True" 
+            VerticalScrollBarVisibility="Visible" 
+            HorizontalScrollBarVisibility="Auto" 
+            SelectionOpacity="-1"
+            IsEnabled="{Binding IsNotEmptyPoem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <FlowDocument PageHeight="180">
+                <Paragraph>
+                    <Run Text="{Binding PoemText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <CheckBox 
+            x:Name="checkBox2" 
+            Panel.ZIndex="1" 
+            Grid.Row="0" 
+            Grid.Column="0" 
+            Margin="27,519,549,15"
+            Command="{Binding ClickAddClicheToCongratulation}"
+            IsEnabled="{Binding IsNotEmptyCliche, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            IsChecked="{Binding IsAddСliche,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+        </CheckBox>
+        <RichTextBox 
+            x:Name="richTextBox2" 
+            Panel.ZIndex="1"   
+            Grid.Row="0" 
+            Grid.Column="0" 
+            Width="450" 
+            Height="200" 
+            FontFamily="Segoe UI Semilight" 
+            FontSize="20" 
+            Margin="63,326,83,24" 
+            BorderBrush="#FF72C1F7" 
+            Background="White" 
+            ScrollViewer.CanContentScroll="True" 
+            VerticalScrollBarVisibility="Visible" 
+            HorizontalScrollBarVisibility="Auto"  
+            MinHeight="200" MaxHeight="200"
+            IsEnabled="{Binding IsNotEmptyCliche, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <FlowDocument PageHeight="180">
+                <Paragraph>
+                    <Run Text="{Binding ClicheText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <Button 
+            x:Name="buttonPast" 
+            Grid.Column="0" 
+            Grid.Row="1" 
+            Margin="16,26,380,17" 
+            FontSize="20" 
+            FontFamily="Segoe UI Semibold" 
+            Cursor="Hand" 
+            BorderBrush="#FF2693AA" 
+            RenderTransformOrigin="0.5,0.5" 
+            ForceCursor="True"
+            Background="#FF4AC2DB" 
+            Height="76" 
+            MaxWidth="290" 
+            MaxHeight="68" 
+            Width="200" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center"
+            Command="{Binding ClickReturn}">
+            Вернуться к анкете
+        </Button>
+        <Label 
+            x:Name="labelPicture" 
+            Panel.ZIndex="1" 
+            Grid.Row="0" 
+            Grid.Column="1" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Top" 
+            Margin="213,30,210,0" 
+            FontFamily="Segoe UI Semibold" 
+            FontSize="20" 
+            Width="174"
+            Foreground="{Binding ColorHeader, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+            Выбор картинки
+        </Label>
+        <Grid  Grid.Row="1" Grid.Column="1" Height="100">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button 
+                Grid.Column="0" 
+                FontSize="20" 
+                FontFamily="Segoe UI Semibold" 
+                Cursor="Hand" 
+                BorderBrush="#FF10661C" 
+                RenderTransformOrigin="0.5,0.5" 
+                ForceCursor="True" 
+                Background="#FF1B972C" 
+                Height="68" 
+                MaxWidth="290" 
+                MaxHeight="68" 
+                Width="290" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                Margin="-1,16,9,16"
+                Command="{Binding ClickAccept}">
+                Принять
+            </Button>
+            <Button 
+                Grid.Column="1" 
+                FontSize="20" 
+                FontFamily="Segoe UI Semibold" 
+                Cursor="Hand" 
+                BorderBrush="#FFFA0000" 
+                RenderTransformOrigin="0.5,0.5" 
+                ForceCursor="True" 
+                Background="#FFFA0000" 
+                Height="68" 
+                MaxWidth="220" 
+                MaxHeight="68" 
+                Width="220" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                Margin="68,16,10,16"
+                Command="{Binding ClickExit}">
+                Выход
+            </Button>
+        </Grid>
+        <Image 
+            Name="refreshButtonPoems" 
+            Panel.ZIndex="1"  
+            HorizontalAlignment="Left" 
+            Height="50" 
+            Margin="510,122,0,0" 
+            VerticalAlignment="Top" 
+            Width="47"  
+            Source="{Binding PathRefreshImage}">
+            <Image.InputBindings>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding RefreshPoem}"/>
+            </Image.InputBindings>
+        </Image>
+        <Image 
+            Name="refreshButtonCliche" 
+            Panel.ZIndex="1"  
+            HorizontalAlignment="Left" 
+            Height="50" Margin="510,409,0,0" 
+            VerticalAlignment="Top" 
+            Width="47"  
+            Source="{Binding PathRefreshImage}">
+            <Image.InputBindings>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding RefreshCliche}"/>
+            </Image.InputBindings>
+        </Image>
+        <Image 
+            Name="refreshButtonPicture" 
+            Panel.ZIndex="1" 
+            HorizontalAlignment="Left" 
+            Height="50" 
+            Margin="279,261,0,0" 
+            VerticalAlignment="Top" 
+            Width="47"  
+            Source="{Binding PathRefreshImage}" 
+            Grid.Column="1">
+            <Image.InputBindings>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding RefreshImage}"/>
+            </Image.InputBindings>
+        </Image>
+        <StackPanel 
+            Name="PoemPanel" 
+            HorizontalAlignment="Left" 
+            Height="262" 
+            Margin="16,20,0,0" 
+            VerticalAlignment="Top" 
+            Width="549" >
+            <StackPanel.Background>
+                <ImageBrush 
+                    ImageSource="{Binding PathPanelTheme, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                    Stretch="Fill"/>
+            </StackPanel.Background>
+        </StackPanel>
+        <StackPanel 
+            Name="ClichePanel" 
+            HorizontalAlignment="Left" 
+            Height="225" 
+            Margin="14,315,0,0" 
+            VerticalAlignment="Top" 
+            Width="551">
+            <StackPanel.Background>
+                <ImageBrush 
+                    ImageSource="{Binding PathPanelTheme, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                    Stretch="Fill"/>
+            </StackPanel.Background>
+        </StackPanel>
+    </Grid>
+</Window>

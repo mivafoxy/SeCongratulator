@@ -32,22 +32,8 @@ namespace SeCongratulator.Models
               "Языкознание",
               "Программирование" });
 
-            Holiday.AddRange(new string[]
-            { "День Рождение",
-              "Новый Год",
-              "8 марта",
-              "23 февраля",
-              "14 февраля",
-              "1 сентября",
-              "1 мая",
-              "День Народного Единства",
-              "День Победы",
-              "Рождество",
-              "Крещение",
-              "Свадьба",
-              "День Учителя",
-              "День Семьи",
-              "Любви и Верности" });
+            var holidaysToBrushes = ProfileConsts.GetHolidayNamesToBrushes();
+            Holiday.AddRange(holidaysToBrushes.Keys);
         }
 
         public string Name { get => name; set => SetField(ref name, value); }

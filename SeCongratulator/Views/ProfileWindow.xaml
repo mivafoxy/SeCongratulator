@@ -7,114 +7,209 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:SeCongratulator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="340" Width="372">
+        Title="Генератор поздравлений" Height="520" Width="500" FontFamily="Segoe WP Semibold" FontSize="20" Opacity="1" MinWidth="500" MinHeight="520" MaxWidth="500" MaxHeight="520" ResizeMode="NoResize">
     <Window.DataContext>
         <ViewModel:ProfileWindowVM/>
     </Window.DataContext>
+    <Window.Background>
+        <SolidColorBrush Color="#FFA2D7FB"/>
+    </Window.Background>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="97*"/>
-            <ColumnDefinition Width="269*"/>
+            <ColumnDefinition Width="16*"/>
+            <ColumnDefinition Width="25*"/>
         </Grid.ColumnDefinitions>
-        <Label Name="MainLabel" 
-            Content="Заполните анкету" 
-            Margin="10,22,0,0"
-            FontSize="40"
-            VerticalAlignment="Top"
-            HorizontalAlignment="Left" Grid.ColumnSpan="2"/>
-        <Label Name="NameLabel"        
-            Content="Имя" 
-            HorizontalAlignment="Left"
-            Margin="10,111,0,0" 
-            VerticalAlignment="Top"/>
-        <TextBox Name="NameInput"     
-            HorizontalAlignment="Left" 
-            Height="25" 
-            Margin="5.2,111,0,0" 
-            TextWrapping="NoWrap" 
-            Text="{Binding User.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-            VerticalAlignment="Top" 
-            Width="250" 
-            Opacity="{Binding NameOpacity,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            Background="{Binding NameColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1">
-            <i:Interaction.Triggers>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="80"/>
+        </Grid.RowDefinitions>
+        <Image 
+            Grid.Row="0" 
+            Grid.Column="1" 
+            Margin="163,5,0,47" 
+            Stretch="Fill" 
+            Name="Img1" 
+            Grid.RowSpan="2" 
+            Source="/SeCongratulator;component/Images/Items/top.png"/>
+
+        <Label x:Name="labelMainWindow" 
+               Grid.Row="0" 
+               Grid.Column="0" 
+               IsEnabled="False" 
+               FontFamily="Rockwell" 
+               FontSize="20" 
+               FontWeight="Bold" 
+               Foreground="#FF020202" 
+               Content="Введите информацию о человеке, &#xD;&#xA;которого Вы хотите поздравить" 
+               Grid.ColumnSpan="2" 
+               Margin="0,22" 
+               TextOptions.TextHintingMode="Fixed" 
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Center" 
+               Width="350"/>
+
+        <Label 
+            x:Name="labelName" 
+            Grid.Row="1" 
+            Grid.Column="0" 
+            Margin="0,5" >Имя</Label>
+
+        <TextBox Name="NameInput" 
+                 Text="{Binding User.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Opacity="{Binding NameOpacity,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Background="{Binding NameColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Grid.Row="1" 
+                 Grid.Column="1" 
+                 Padding="5, 5, 0,5" 
+                 Margin="0,5,10,5" 
+                 FontFamily="Segoe WP SemiLight"  
+                 Panel.ZIndex="10" 
+                 BorderBrush="#FF72C1F7">
+             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="KeyUp">
                     <i:InvokeCommandAction Command="{Binding CheckValid}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </TextBox>
-        <Label Name="AgeLabel"        
-            Content="Возраст" 
-            HorizontalAlignment="Left"
-            Margin="10,143,0,0" 
-            VerticalAlignment="Top"/>
-        <ComboBox Name="AgeInput"
-            HorizontalAlignment="Left" 
-            Margin="5.2,143,0,0" 
-            VerticalAlignment="Top" 
-            Width="250"
-            BorderBrush="Black"
+
+        <Label 
+            x:Name="labelAge" 
+            Grid.Row="2" 
+            Grid.Column="0" 
+            Margin="0,5">Возраст</Label>
+        <ComboBox 
+            Name="AgeInput" 
+            Grid.Row="2" 
+            Grid.Column="1" 
+            Padding="5, 5, 0,5" 
+            Margin="0,5,10,5"  
+            Cursor="Hand" 
+            FontFamily="Segoe WP SemiLight" 
+            Panel.ZIndex="10" 
+            BorderBrush="#FF72C1F7" 
+            Background="#FFCCEEEE"  
+            OpacityMask="#FFCCEEEE" 
+            TabIndex="2147483645" 
+            IsHitTestVisible="True" 
+            IsTabStop="False" 
+            IsReadOnly="True" 
             ItemsSource="{Binding User.Age}"
-            SelectedValue="{Binding SelectedAge, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1">
-            <!--<ComboBox.Resources>
-                <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#7F054353" />
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#7F054353" />
-            </ComboBox.Resources>-->
-        </ComboBox>
-        <Label Name="SexLabel"        
-            Content="Пол" 
-            HorizontalAlignment="Left"
-            Margin="10,175,0,0" 
-            VerticalAlignment="Top"/>
-        <RadioButton Name="MaleChoose"
-            Content="Мужской" 
-            HorizontalAlignment="Left" 
-            Margin="6.2,181,0,0" 
-            VerticalAlignment="Top"
-            IsChecked="{Binding IsMale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
-        <RadioButton Name="FemaleChoose"
-            Content="Женский" 
-            HorizontalAlignment="Left" 
-            Margin="90.2,181,0,0" 
-            VerticalAlignment="Top"
-            IsChecked="{Binding IsFemale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
-        <Label Name="InterestLabel"        
-            Content="Увлечения" 
-            HorizontalAlignment="Left"
-            Margin="10,204,0,0" 
-            VerticalAlignment="Top"/>
-        <ComboBox Name="InterestInput"
-            HorizontalAlignment="Left" 
-            Margin="5.2,204,0,0" 
-            VerticalAlignment="Top" 
-            Width="250"
-            ItemsSource="{Binding User.Interest}"
-            SelectedValue="{Binding SelectedInterest, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
-        <Label Name="HolidayLabel"        
-            Content="Праздник" 
-            HorizontalAlignment="Left"
-            Margin="10,235,0,0" 
-            VerticalAlignment="Top"/>
-        <ComboBox Name="HolidaytInput"
-            HorizontalAlignment="Left" 
-            Margin="5.2,235,0,0" 
-            VerticalAlignment="Top" 
-            Width="250"
+            SelectedValue="{Binding SelectedAge, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Label 
+            x:Name="labelSex" 
+            Grid.Row="3" 
+            Grid.Column="0" 
+            Margin="0,5">Пол</Label>
+
+        <Grid Grid.Row="3" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="100px"/>
+                <ColumnDefinition Width="30px"/>
+                <ColumnDefinition Width="100px"/>
+            </Grid.ColumnDefinitions>
+            <RadioButton 
+                Name="MaleChoose" 
+                Margin="7,18" 
+                Cursor="Hand" 
+                IsChecked="{Binding IsMale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            
+            <Label 
+                x:Name="labelMan" 
+                Grid.Column="1" 
+                FontFamily="Segoe WP SemiLight" 
+                Margin="0,5" >Mужской</Label>
+            
+            <RadioButton 
+                Name="FemaleChoose" 
+                IsChecked="{Binding IsFemale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                Grid.Column="2" 
+                Margin="7,18"  
+                Cursor="Hand"/>
+            <Label 
+                x:Name="labelWoman" 
+                Grid.Column="3" 
+                FontFamily="Segoe WP SemiLight"  
+                Margin="0,5">Женский</Label>
+        </Grid>
+
+        <Label 
+            x:Name="labelInterests" 
+            Grid.Row="4" 
+            Grid.Column="0" 
+            Margin="0,5">Увлечения</Label>
+        <ComboBox 
+            Name="InterestInput" 
+            SelectedValue="{Binding SelectedInterest, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+            ItemsSource="{Binding User.Interest}" 
+            Grid.Row="4" 
+            Grid.Column="1"  
+            Cursor="Hand" 
+            Padding="5, 5, 0,5" 
+            Margin="0,5,10,5" 
+            FontFamily="Segoe WP SemiLight" 
+            Background="#FFCCEEEE" 
+            Panel.ZIndex="10" 
+            BorderBrush="#FF72C1F7"/>
+
+        <Label 
+            Name="HolidayLabel" 
+            Grid.Row="5" 
+            Grid.Column="0" 
+            Margin="0,5">Праздник</Label>
+        
+        <ComboBox 
+            x:Name="comboBoxHoliday" 
             ItemsSource="{Binding User.Holiday}"
-            SelectedItem="{Binding SelectedHoliday, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
-        <Button Name="NextButton"
-            Content="Cоздать поздравление" 
+            SelectedItem="{Binding SelectedHoliday, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+            Grid.Row="5" 
+            Grid.Column="1"  
+            Cursor="Hand" 
+            Padding="5, 5, 0,5" 
+            Margin="0,5,10,5" 
+            FontFamily="Segoe WP SemiLight" 
+            Background="#FFCCEEEE" 
+            Panel.ZIndex="10" 
+            BorderBrush="#FF72C1F7"/>
+
+        <Button 
+            Name="NextButton" 
+            Grid.Row="6" 
+            Grid.Column="1" 
+            Padding="5, 5, 0,5" 
+            Margin="0,15,10,15" 
+            Cursor="Hand" 
+            BorderBrush="#FF4AC2DB" 
+            RenderTransformOrigin="0.5,0.5" 
+            ForceCursor="True" 
+            Background="#FF4AC2DB" 
+            Command="{Binding SearchCongratulation}" 
+            Content="Создать поздравление"></Button>
+        
+        <Button 
+            Name="clearButton" 
+            Content="Очистить" 
             HorizontalAlignment="Left" 
-            Margin="115.2,274,0,0" 
+            Padding="5, 5, 0,5" 
+            Margin="10,15,0,0" 
+            Grid.Row="6" 
             VerticalAlignment="Top" 
-            Width="140" Height="25"
-            Command="{Binding SearchCongratulation}" Grid.Column="1"/>
-        <Button x:Name="ClearButton"
-            Content="Очистить анкету" 
-            HorizontalAlignment="Left" 
-            Margin="10,274,0,0" 
-            VerticalAlignment="Top" 
-            Width="96" Height="25"
-            Command="{Binding ClearProfile}" Grid.ColumnSpan="2"/>
+            Width="144" Height="50" 
+            RenderTransformOrigin="0.5,0.5" 
+            BorderBrush="#FF4AC2DB" 
+            Cursor="Hand" 
+            ForceCursor="True" 
+            Command="{Binding ClearProfile}">
+            <Button.Background>
+                <SolidColorBrush Color="#FF4AC2DB"/>
+            </Button.Background>
+        </Button>
     </Grid>
 </Window>

@@ -1,5 +1,6 @@
 ﻿using SeCongratulator.Helper_classes;
 using SeCongratulator.Models;
+using SeCongratulator.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace SeCongratulator.ViewModels
     class ProfileWindowVM: ModelBase
     {
         Profile user;
+        Congratulation profile=new  Congratulation();
         private string selectedAge;
         private string selectedInterest;
         private string selectedHoliday;
@@ -30,6 +32,31 @@ namespace SeCongratulator.ViewModels
             SelectedInterest = String.Empty;
             IsMale = false;
             IsFemale = false;
+            NameOpacity = 1;
+            NameColor = Brushes.White;
+        }
+
+        public ProfileWindowVM(Congratulation profile)
+        {
+            User = new Profile();
+            User.Name = ProfileConsts.nameProfile;
+            SelectedHoliday = profile.Holiday;
+            SelectedInterest = profile.Interest;
+            SelectedAge = profile.Age;
+            SelectedAge = profile.Age;
+            SelectedHoliday = profile.Holiday;
+            SelectedInterest = profile.Interest;
+            if (profile.Sex == 0)
+            {
+                IsFemale = true;
+                IsMale = false;
+            }
+            else
+            {
+                IsMale = true;
+                IsFemale = false;
+            }
+            NameColor = Brushes.White;
             NameOpacity = 1;
         }
         /// <summary>
@@ -68,7 +95,16 @@ namespace SeCongratulator.ViewModels
                     (IsMale || IsFemale) &&
                     SelectedHoliday != String.Empty)
                     {
-                        MessageBox.Show("Поиск поздравления");
+                        profile.Age = SelectedAge;
+                        profile.Holiday = SelectedHoliday;
+                        profile.Interest = SelectedInterest;
+                        if (IsMale) profile.Sex = 1;
+                        else profile.Sex = 0;
+                        ProfileConsts.nameProfile = User.Name;
+                        СonstructionWindow window = new СonstructionWindow();
+                        window.DataContext = new СonstructionWindowVM(profile);
+                        window.Show();
+                        Application.Current.Windows[0].Close();
                     }
                     else
                     {
