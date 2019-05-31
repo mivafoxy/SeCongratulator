@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -23,6 +24,7 @@ namespace SeCongratulator.ViewModels
         private bool isFemale;
         private SolidColorBrush nameColor;
         private float nameOpacity;
+        private Regex rule = new Regex(@"[^A-Za-zА-Яа-я]");
         /*private SystemColors bgCol =*/
         public ProfileWindowVM()
         {
@@ -90,7 +92,8 @@ namespace SeCongratulator.ViewModels
             {
                 return new DelegateCommand(new Action(() =>
                 {
-                    if (User.Name != "" &&
+                    if (User.Name != "" && 
+                    (!rule.IsMatch(User.Name)) &&
                     SelectedAge != String.Empty &&
                     (IsMale || IsFemale) &&
                     SelectedHoliday != String.Empty)
@@ -108,7 +111,7 @@ namespace SeCongratulator.ViewModels
                     }
                     else
                     {
-                        MessageBox.Show("Не все поля заполнены!");
+                        MessageBox.Show("Не все поля заполнены или поле Имя заполнено некорректно!" + '\n'+"В поле Имя можно вводить только буквы!");
                     }
                 }));
             }
@@ -125,7 +128,7 @@ namespace SeCongratulator.ViewModels
                     {   
                         NameColor = new SolidColorBrush(Color.FromArgb(100,0,200,0));
                     }
-                    if (User.Name == String.Empty) 
+                    if (User.Name == String.Empty || rule.IsMatch(User.Name)) 
                     {
                         NameColor = new SolidColorBrush(Color.FromArgb(100, 200, 0, 0));
                     }
