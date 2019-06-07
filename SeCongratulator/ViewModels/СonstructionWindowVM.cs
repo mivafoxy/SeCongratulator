@@ -3,6 +3,7 @@ using SeCongratulator.Models;
 using SeCongratulator.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -22,17 +23,10 @@ namespace SeCongratulator.ViewModels
         string pathPanelTheme = "..\\Images\\Themes\\0.jpg";
         string pathRefreshImage = "..\\Images\\Items\\refresh.png";
 
-        string pathCongratulationImage_1 = " ";
-        string pathCongratulationImage_2 = " ";
-        string pathCongratulationImage_3 = " ";
-        string pathCongratulationImage_4 = " ";
+        ObservableCollection<string> pathCongratulationImage = new ObservableCollection<string>();
+        ObservableCollection<bool> isChooseImage = new ObservableCollection<bool>() { false, false, false, false };
 
         bool isAddImage = false;
-
-        bool isChooseImage_1 = false;
-        bool isChooseImage_2 = false;
-        bool isChooseImage_3 = false;
-        bool isChooseImage_4 = false;
 
         bool isAddPoem = false;
         bool isAddСliche = false;
@@ -51,9 +45,19 @@ namespace SeCongratulator.ViewModels
 
         public СonstructionWindowVM()
         {
-
+            Profile = new Congratulation();
+            Profile.Age = "34";
+            Profile.Holiday = "Новый Год";
+            Profile.Sex = 1;
+            listImagesCongratulation = getCongratulationImagesFromFolder(Profile);
+            for (int i = 0; i < 4; i++)
+            {
+                PathCongratulationImage.Add(listImagesCongratulation[i]);
+            }
+            ColorHeader = ProfileConsts.GetHolidayNamesToBrushes().FirstOrDefault(htob => htob.Key.Equals(profile.Holiday)).Value;
+            PathBackgroundTheme = "..\\Images\\Themes\\" + Profile.Holiday + ".jpg";
+            PathPanelTheme = "..\\Images\\Themes\\" + Profile.Holiday + ".png";
         }
-
         public СonstructionWindowVM(Congratulation profile)
         {
             Profile = profile;
@@ -95,33 +99,18 @@ namespace SeCongratulator.ViewModels
                 IsNotEmptyPoem = false;
             }
             listImagesCongratulation = getCongratulationImagesFromFolder(profile);
-            if (listImagesCongratulation.Count != 0 && listImagesCongratulation.Count > 3)
+            if (listImagesCongratulation.Count != 0 && listImagesCongratulation.Count >= 3)
             {
-                PathCongratulationImage_1 = listImagesCongratulation[0];
-                PathCongratulationImage_2 = listImagesCongratulation[1];
-                PathCongratulationImage_3 = listImagesCongratulation[2];
-                PathCongratulationImage_4 = listImagesCongratulation[3];
-
+                for (int i = 0; i < 4; i++)
+                {
+                    PathCongratulationImage.Add(listImagesCongratulation[i]);
+                }
             }
             if (listImagesCongratulation.Count != 0 && listImagesCongratulation.Count < 3)
             {
                 for (int i = 0; i < listImagesCongratulation.Count; i++)
                 {
-                    switch (i)
-                    {
-                        case 0:
-                            PathCongratulationImage_1 = listImagesCongratulation[0];
-                            break;
-                        case 1:
-                            PathCongratulationImage_2 = listImagesCongratulation[1];
-                            break;
-                        case 2:
-                            PathCongratulationImage_3 = listImagesCongratulation[2];
-                            break;
-                        case 3:
-                            PathCongratulationImage_4 = listImagesCongratulation[3];
-                            break;
-                    } 
+                    PathCongratulationImage.Add(listImagesCongratulation[i]);
                 }
             }
             if (listClicheCongratulation.Count != 0) ClicheText = listClicheCongratulation[0];
@@ -157,46 +146,23 @@ namespace SeCongratulator.ViewModels
                 {
                     try
                     {
-                        if (!(pathCongratulationImage_1.Contains(" ") ||
-                        pathCongratulationImage_2.Contains(" ")) ||
-                        pathCongratulationImage_3.Contains(" ") ||
-                        pathCongratulationImage_4.Contains(" "))
+                        if (PathCongratulationImage.Count > 3)
                         {
-                            int checkKey = listImagesCongratulation.Where(x => x.Value.Equals(PathCongratulationImage_4)).First().Key;
-                            for (int i = 0; i < 4; i++)
+                            int checkKey = listImagesCongratulation.Where(x => x.Value.Equals(PathCongratulationImage.Last())).First().Key;
+                            for (int i = 0; i < PathCongratulationImage.Count; i++)
                             {
-                                if (listImagesCongratulation.ContainsKey(checkKey + 1))
-                                {
-                                    checkKey++;
-                                }
-                                else
-                                {
-                                    checkKey = 0;
-                                }
-                                switch (i)
-                                {
-                                    case 0:
-                                        PathCongratulationImage_1 = listImagesCongratulation[checkKey];
-                                        break;
-                                    case 1:
-                                        PathCongratulationImage_2 = listImagesCongratulation[checkKey];
-                                        break;
-                                    case 2:
-                                        PathCongratulationImage_3 = listImagesCongratulation[checkKey];
-                                        break;
-                                    case 3:
-                                        PathCongratulationImage_4 = listImagesCongratulation[checkKey];
-                                        break;
-                                }
+                                if (listImagesCongratulation.ContainsKey(checkKey + 1)) checkKey++;
+                                else checkKey = 0;
+                                PathCongratulationImage[i] = listImagesCongratulation[checkKey];
                             }
                         }
                     }catch(Exception e)
                     {
                         MessageBox.Show(e.Message);
-                        PathCongratulationImage_1 = "/SeCongratulator;component/Images/Items/NoPhoto.jpg";
-                        PathCongratulationImage_2 = "/SeCongratulator;component/Images/Items/NoPhoto.jpg";
-                        PathCongratulationImage_3 = "/SeCongratulator;component/Images/Items/NoPhoto.jpg";
-                        PathCongratulationImage_4 = "/SeCongratulator;component/Images/Items/NoPhoto.jpg";
+                        for(int i = 0; i < PathCongratulationImage.Count; i++)
+                        {
+                            PathCongratulationImage[i]= "/SeCongratulator;component/Images/Items/NoPhoto.jpg";
+                        }
                     }
                 }));
             }
@@ -236,10 +202,10 @@ namespace SeCongratulator.ViewModels
                 {
                     if (!IsAddImage)
                     {
-                        IsChooseImage_1 = false;
-                        IsChooseImage_1 = false;
-                        IsChooseImage_1 = false;
-                        IsChooseImage_1 = false;
+                        for (int i = 0; i < IsChooseImage.Count; i++)
+                        {
+                            IsChooseImage[i] = false;
+                        }
                     }
                 }));
             }
@@ -251,10 +217,6 @@ namespace SeCongratulator.ViewModels
             {
                 return new DelegateCommand(new Action(() =>
                 {
-                    /*if (!IsAddPoem)
-                    {
-                        PoemText = string.Empty;
-                    }*/
                 }));
             }
         }
@@ -265,10 +227,6 @@ namespace SeCongratulator.ViewModels
             {
                 return new DelegateCommand(new Action(() =>
                 {
-                    /*if (!IsAddСliche)
-                    {
-                        ClicheText = string.Empty;
-                    }*/
                 }));
             }
         }
@@ -292,15 +250,19 @@ namespace SeCongratulator.ViewModels
                     Result result = new Result();
                     if (IsAddImage)
                     {
-                        if (IsChooseImage_1 == true) result.Img = PathCongratulationImage_1;
-                        if (IsChooseImage_2 == true) result.Img = PathCongratulationImage_2;
-                        if (IsChooseImage_3 == true) result.Img = PathCongratulationImage_3;
-                        if (IsChooseImage_4 == true) result.Img = PathCongratulationImage_4;
+                        for (int i = 0; i < IsChooseImage.Count; i++)
+                        {
+                            if (IsChooseImage[i])
+                            {
+                                result.Img = PathCongratulationImage[i];
+                                break;
+                            }
+                        }
                     }
                     else result.Img = string.Empty;
                     if (IsAddPoem) result.Poem = PoemText;
                     if (IsAddСliche) result.Cliche = ClicheText;
-                    if (IsAddPoem || IsAddСliche || (IsAddImage && (IsChooseImage_1 || IsChooseImage_2 || IsChooseImage_3 || IsChooseImage_4))) 
+                    if (IsAddPoem || IsAddСliche || (IsAddImage && IsChooseImage.Where(x => x==true).FirstOrDefault())) 
                     {
                         ResultView window = new ResultView();
                         window.DataContext = new ResultWindowVM(result, Profile);
@@ -386,15 +348,7 @@ namespace SeCongratulator.ViewModels
         public string PathBackgroundTheme { get => pathBackgroundTheme; set => SetField(ref pathBackgroundTheme, value); }
         public string PathRefreshImage { get => pathRefreshImage; set => SetField(ref pathRefreshImage, value); }
         public Brush ColorHeader { get => colorHeader; set => SetField(ref colorHeader, value); }
-        public string PathCongratulationImage_1 { get => pathCongratulationImage_1; set => SetField(ref pathCongratulationImage_1, value); }
-        public string PathCongratulationImage_2 { get => pathCongratulationImage_2; set => SetField(ref pathCongratulationImage_2, value); }
-        public string PathCongratulationImage_3 { get => pathCongratulationImage_3; set => SetField(ref pathCongratulationImage_3, value); }
-        public string PathCongratulationImage_4 { get => pathCongratulationImage_4; set => SetField(ref pathCongratulationImage_4, value); }
         public bool IsAddImage { get => isAddImage; set => SetField(ref isAddImage, value); }
-        public bool IsChooseImage_1 { get => isChooseImage_1; set => SetField(ref isChooseImage_1, value); }
-        public bool IsChooseImage_2 { get => isChooseImage_2; set => SetField(ref isChooseImage_2, value); }
-        public bool IsChooseImage_3 { get => isChooseImage_3; set => SetField(ref isChooseImage_3, value); }
-        public bool IsChooseImage_4 { get => isChooseImage_4; set => SetField(ref isChooseImage_4, value); }
         public string PathPanelTheme { get => pathPanelTheme; set => SetField(ref pathPanelTheme, value); }
         public bool IsAddPoem { get => isAddPoem; set => SetField(ref isAddPoem, value); }
         public bool IsAddСliche { get => isAddСliche; set => SetField(ref isAddСliche, value); }
@@ -403,5 +357,7 @@ namespace SeCongratulator.ViewModels
         internal Congratulation Profile { get => profile; set => SetField(ref profile, value); }
         public bool IsNotEmptyPoem { get => isNotEmptyPoem; set => SetField(ref isNotEmptyPoem, value); }
         public bool IsNotEmptyCliche { get => isNotEmptyCliche; set => SetField(ref isNotEmptyCliche, value); }
+        public ObservableCollection<string> PathCongratulationImage { get => pathCongratulationImage; set => SetField(ref pathCongratulationImage, value); }
+        public ObservableCollection<bool> IsChooseImage { get => isChooseImage; set => SetField(ref isChooseImage, value); }
     }
 }
